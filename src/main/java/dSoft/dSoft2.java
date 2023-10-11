@@ -1,5 +1,7 @@
 package dSoft;
 
+import java.util.Arrays;
+
 public class dSoft2 {
 	/////////////// QUESTION 01
 	// a. Esse método e utilizado para calcular a média de notas de um aluno,
@@ -25,8 +27,27 @@ public class dSoft2 {
 	}
 
 	//////////////// QUESTION 02
-	public static double getArray() {
-		return 0;
+	public static boolean verifyLength(int number) {
+		return (number > 100) && (number < 999);
+	}
+
+	public static int[] getDigits(int number) {
+		boolean metConditions = verifyLength(number);
+		int[] digits = new int[3];
+
+		if (metConditions) {
+			digits[0] = (number / 100) % 10;
+			digits[1] = (number / 10) % 10;
+			digits[2] = number % 10;
+			return digits;
+		} else {
+			return null;
+		}
+
+	}
+
+	public static boolean isEven(int number) {
+		return (number % 2 == 0);
 	}
 
 	/////////////// QUESTION 03
