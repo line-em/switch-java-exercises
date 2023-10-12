@@ -13,7 +13,7 @@ public class dSoft2 {
 		double totalGrades = 0;
 
 		for (int i = 0; i < grades.length; i++) {
-			if (weights[i] <= 0 || grades[i] < 0) return -1; //Should not be negative
+			if (weights[i] <= 0 || grades[i] < 0) return 0; //Should not be negative
 			totalWeight += weights[i];
 			totalGrades += grades[i] * weights[i];
 		}
@@ -23,6 +23,21 @@ public class dSoft2 {
 
 	public static boolean hasPassed(double studentAverage) {
 		return studentAverage >= 8;
+	}
+
+	public static String resultMessage(boolean success){
+		if (success)
+			return "O aluno passou!";
+		else
+			return "O aluno reprovou.";
+	}
+
+	public static String assessStudent(int[] grades, int[] weights){
+		double studentGrades = getAverage(grades, weights);
+		boolean assessGrades = hasPassed(studentGrades);
+		String result = resultMessage(assessGrades);
+
+		return result;
 	}
 
 	//////////////// QUESTION 02

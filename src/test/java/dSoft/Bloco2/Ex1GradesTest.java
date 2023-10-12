@@ -2,7 +2,7 @@ package dSoft.Bloco2;
 
 import dSoft.dSoft2;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class Ex1GradesTest {
 	@Test
@@ -21,7 +21,7 @@ public class Ex1GradesTest {
 		int[] studentGrades = {-2, -3, 20};
 		int[] testWeights = {-1, 3, 2};
 
-		double expected = -1;
+		double expected = 0;
 		double result = dSoft2.getAverage(studentGrades, testWeights);
 
 		assertEquals(expected, result, 0.1);
@@ -46,7 +46,7 @@ public class Ex1GradesTest {
 		double positiveGrades = dSoft2.getAverage(studentGrades, testWeights);
 		boolean result = dSoft2.hasPassed(positiveGrades);
 
-		assertEquals(true, result);
+		assertTrue(result);
 	}
 
 	@Test
@@ -57,6 +57,17 @@ public class Ex1GradesTest {
 		double badGrades = dSoft2.getAverage(studentGrades, testWeights);
 		boolean result = dSoft2.hasPassed(badGrades);
 
-		assertEquals(false, result);
+		assertFalse(result);
+	}
+
+	@Test
+	public void assessPositiveResults() {
+		int[] studentGrades = {5, 8, 20};
+		int[] testWeights = {5, 3, 2};
+
+		String result = dSoft2.assessStudent(studentGrades, testWeights);
+		String expected = "O aluno passou!";
+
+		assertEquals(expected, result);
 	}
 }
