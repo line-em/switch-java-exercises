@@ -1,5 +1,6 @@
 package dSoft.Bloco2;
 
+import dSoft.Main;
 import dSoft.dSoft2;
 import org.junit.Test;
 import static org.junit.Assert.*;

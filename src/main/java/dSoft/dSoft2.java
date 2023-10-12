@@ -16,7 +16,12 @@ public class dSoft2 {
 			totalGrades += grades[i] * weights[i];
 		}
 
-		return totalGrades / totalWeight;
+		double mediaFinal = totalGrades / totalWeight;
+
+		if (mediaFinal <= 20)
+			return mediaFinal;
+		else
+			return -1;
 	}
 
 	public static boolean hasPassed(double studentAverage) {
@@ -71,17 +76,15 @@ public class dSoft2 {
 	}
 
 	// QUESTION 04
-public static int conditionalExpression(int num){
-		if (num == 0)
-			return 0;
-		else if (num < 0)
-			return num;
-		else
-			return (num * 2) - (2 * num);
-}
+	// TODO: TIRAR DUVIDA COM O PROFESSOR
+	public static int conditionalExpression(int num) {
+		if (num == 0) return 0;
+		else if (num < 0) return num;
+		else return (num * 2) - (2 * num);
+	}
 
 	// QUESTION 05
-	public static float getCubeVolume(int area){
+	public static float getCubeVolume(int area) {
 		if (area < 0) return -1;
 
 		double areaCalc = (double) area / 6;
@@ -91,7 +94,7 @@ public static int conditionalExpression(int num){
 		return 0;
 	}
 
-	public static double getCubeSize(double volume){
+	public static double getCubeSize(double volume) {
 		return 0;
 	}
 }

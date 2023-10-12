@@ -48,7 +48,6 @@ public class Ex1GradesTest {
 
 		assertTrue(result);
 	}
-
 	@Test
 	public void hasPassedFalse() {
 		int[] studentGrades = {5, 8, 3};
@@ -67,6 +66,17 @@ public class Ex1GradesTest {
 
 		String result = dSoft2.assessStudent(studentGrades, testWeights);
 		String expected = "O aluno passou!";
+
+		assertEquals(expected, result);
+	}
+
+	@Test
+	public void assessNegativeResults() {
+		int[] studentGrades = {2, 8, 2};
+		int[] testWeights = {5, 3, 2};
+
+		String result = dSoft2.assessStudent(studentGrades, testWeights);
+		String expected = "O aluno reprovou.";
 
 		assertEquals(expected, result);
 	}
