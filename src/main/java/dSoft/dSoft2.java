@@ -23,14 +23,12 @@ public class dSoft2 {
 		return studentAverage >= 8;
 	}
 
-	public static String resultMessage(boolean success){
-		if (success)
-			return "O aluno passou!";
-		else
-			return "O aluno reprovou.";
+	public static String resultMessage(boolean success) {
+		if (success) return "O aluno passou!";
+		else return "O aluno reprovou.";
 	}
 
-	public static String assessStudent(int[] grades, int[] weights){
+	public static String assessStudent(int[] grades, int[] weights) {
 		double studentGrades = getAverage(grades, weights);
 		boolean assessGrades = hasPassed(studentGrades);
 		String result = resultMessage(assessGrades);
@@ -73,6 +71,27 @@ public class dSoft2 {
 	}
 
 	// QUESTION 04
+public static int conditionalExpression(int num){
+		if (num == 0)
+			return 0;
+		else if (num < 0)
+			return num;
+		else
+			return (num * 2) - (2 * num);
+}
 
 	// QUESTION 05
+	public static float getCubeVolume(int area){
+		if (area < 0) return -1;
+
+		double areaCalc = (double) area / 6;
+		double side = Math.sqrt(areaCalc);
+		double volume = Math.pow(side, 3);
+
+		return 0;
+	}
+
+	public static double getCubeSize(double volume){
+		return 0;
+	}
 }
