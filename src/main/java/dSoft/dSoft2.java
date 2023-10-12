@@ -1,7 +1,5 @@
 package dSoft;
 
-import java.util.Arrays;
-
 public class dSoft2 {
 	/////////////// QUESTION 01
 	// a. Esse método é utilizado para calcular a média de notas de um aluno,
@@ -73,4 +71,6 @@ public class dSoft2 {
 		double totalDistance = Math.sqrt(xDistance + yDistance);
 		return totalDistance;
 	}
+
+	// QUESTION 04
 }
