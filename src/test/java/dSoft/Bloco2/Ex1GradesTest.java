@@ -1,6 +1,6 @@
 package dSoft.Bloco2;
 
-import dSoft.dSoft2;
+import dSoft.dSoft2.GradeCalculator;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,7 +11,7 @@ public class Ex1GradesTest {
 		int[] testWeights = {5, 3, 2};
 
 		double expected = 8.9;
-		double result = dSoft2.getAverage(studentGrades, testWeights);
+		double result = GradeCalculator.getAverage(studentGrades, testWeights);
 
 		assertEquals(expected, result, 0.1);
 	}
@@ -22,7 +22,7 @@ public class Ex1GradesTest {
 		int[] testWeights = {-1, 3, 2};
 
 		double expected = 0;
-		double result = dSoft2.getAverage(studentGrades, testWeights);
+		double result = GradeCalculator.getAverage(studentGrades, testWeights);
 
 		assertEquals(expected, result, 0.1);
 	}
@@ -33,7 +33,7 @@ public class Ex1GradesTest {
 		int[] testWeights = {1, 1, 1};
 
 		double expected = -1;
-		double result = dSoft2.getAverage(studentGrades, testWeights);
+		double result = GradeCalculator.getAverage(studentGrades, testWeights);
 
 		assertEquals(expected, result, 0.1);
 	}
@@ -44,7 +44,7 @@ public class Ex1GradesTest {
 		int[] testWeights = {0, 0, 0};
 
 		double expected = 0;
-		double result = dSoft2.getAverage(studentGrades, testWeights);
+		double result = GradeCalculator.getAverage(studentGrades, testWeights);
 
 		assertEquals(expected, result, 0.1);
 	}
@@ -54,8 +54,8 @@ public class Ex1GradesTest {
 		int[] studentGrades = {5, 8, 20};
 		int[] testWeights = {5, 3, 2};
 
-		double positiveGrades = dSoft2.getAverage(studentGrades, testWeights);
-		boolean result = dSoft2.hasPassed(positiveGrades);
+		double positiveGrades = GradeCalculator.getAverage(studentGrades, testWeights);
+		boolean result = GradeCalculator.hasPassed(positiveGrades);
 
 		assertTrue(result);
 	}
@@ -65,8 +65,8 @@ public class Ex1GradesTest {
 		int[] studentGrades = {5, 8, 3};
 		int[] testWeights = {5, 3, 2};
 
-		double badGrades = dSoft2.getAverage(studentGrades, testWeights);
-		boolean result = dSoft2.hasPassed(badGrades);
+		double badGrades = GradeCalculator.getAverage(studentGrades, testWeights);
+		boolean result = GradeCalculator.hasPassed(badGrades);
 
 		assertFalse(result);
 	}
@@ -76,8 +76,8 @@ public class Ex1GradesTest {
 		int[] studentGrades = {5, 8, 20};
 		int[] testWeights = {5, 3, 2};
 
-		double studentAverage = dSoft2.getAverage(studentGrades, testWeights);
-		String result = dSoft2.assessStudent(studentGrades, testWeights);
+		double studentAverage = GradeCalculator.getAverage(studentGrades, testWeights);
+		String result = GradeCalculator.assessStudent(studentGrades, testWeights);
 		String expected = "O aluno passou com uma media de " + studentAverage;
 
 		assertEquals(expected, result);
@@ -88,8 +88,8 @@ public class Ex1GradesTest {
 		int[] studentGrades = {5, 8, 3};
 		int[] testWeights = {5, 3, 2};
 
-		double studentAverage = dSoft2.getAverage(studentGrades, testWeights);
-		String result = dSoft2.assessStudent(studentGrades, testWeights);
+		double studentAverage = GradeCalculator.getAverage(studentGrades, testWeights);
+		String result = GradeCalculator.assessStudent(studentGrades, testWeights);
 		String expected = "O aluno reprovou com uma media de " + studentAverage;
 
 		assertEquals(expected, result);
