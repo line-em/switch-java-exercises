@@ -1,5 +1,9 @@
 package dSoft;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class dSoft2 {
 	/////////////// QUESTION 01
 	public static class GradeCalculator {
@@ -72,43 +76,100 @@ public class dSoft2 {
 		double xDistance = Math.pow(x1 - x2, 2);
 		double yDistance = Math.pow(y1 - y2, 2);
 
-		double totalDistance = Math.sqrt(xDistance + yDistance);
-		return totalDistance;
+		return Math.sqrt(xDistance + yDistance);
 	}
 
 	// QUESTION 04
-	// TODO: TIRAR DUVIDA COM O PROFESSOR
 	public static int returnLowestNum(int num) {
 		return Math.min(num, 0);
-
 	}
 
 	// QUESTION 05
-	public static double getCubeVolume(int area) {
-		if (area < 0) return -1;
+	public static class CubeSize {
+		public static double getCubeVolume(int area) {
+			if (area < 0) return -1;
 
-		double areaCalc = (double) area / 6;
-		double side = Math.sqrt(areaCalc);
-		double volume = Math.pow(side, 3);
+			double areaCalc = (double) area / 6;
+			double side = Math.sqrt(areaCalc);
 
-		return volume;
-	}
+			return Math.pow(side, 3);
+		}
 
-	public static String getCubeDescription(double volume) {
-		if (volume < 0) {
-			return "Impossível";
-		} else if (volume <= 1) {
-			return "Pequeno";
-		} else if (volume > 2) {
-			return "Grande";
-		} else return "Médio";
-	}
+		public static String getCubeDescription(double volume) {
+			if (volume < 0) {
+				return "Impossível";
+			} else if (volume <= 1) {
+				return "Pequeno";
+			} else if (volume > 2) {
+				return "Grande";
+			} else return "Médio";
+		}
 
-	public static String describeCube(int area) {
-		double cubeVolume = getCubeVolume(area);
-		String cubeDescription = getCubeDescription(cubeVolume);
-		return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume + "cm²";
+		public static String describeCube(int area) {
+			double cubeVolume = getCubeVolume(area);
+			String cubeDescription = getCubeDescription(cubeVolume);
+			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume + "cm²";
+		}
 	}
 
 	// QUESTION 6
+	public static class Greetings {
+		public static int[] convertTime(int totalSeconds) {
+			int hours = totalSeconds / 3600;
+			int secondsLeft = totalSeconds % 3600;
+			int minutes = secondsLeft / 60;
+			int seconds = secondsLeft % 60;
+
+			if (hours < 24 && minutes >= 0 && seconds >= 0)
+				return new int[]{hours, minutes, seconds};
+			else
+				return null;
+		}
+
+		public static String formatTime(int[] time){
+			if (time.length != 3) return "Error";
+			int hour = time[0];
+			int minute = time[1];
+			int second = time[time.length - 1];
+			return hour + ":" + minute + ":" + second;
+		}
+
+		public static String getGreeting(int[] time) {
+			if (time.length != 3) return "Error";
+
+			int hour = time[0];
+			int second = time[time.length - 1];
+
+			boolean morning = hour > 6 && (hour <= 12 && second < 1);
+			boolean afternoon = hour >= 12 && (hour <= 20 && second > 1);
+
+			if (morning)
+				return "Bom dia! ☺️";
+			else if (afternoon)
+				return "Boa tarde! 😁";
+			else return "Boa noite! 😴";
+		}
+
+		public static String getWelcomeMessage(int seconds){
+			int[] time = convertTime(seconds);
+			String currentTime =  formatTime(time);
+			String currentGreeting = getGreeting(time);
+			return currentGreeting + "\nAgora é " + currentTime;
+		}
+	}
+
+	public static class BuildingPaintingJob {
+		public static double getPaintingCosts(){
+			return 0;
+		}
+
+		public static double getWorkCosts(){
+
+			return 0;
+		}
+
+		public static double getFullCost(){
+			return 0;
+		}
+	}
 }
