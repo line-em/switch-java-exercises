@@ -1,9 +1,12 @@
 package dSoft;
 
 public class dSoft2 {
+
 	/////////////// QUESTION 01
-	// a. Esse método é utilizado para calcular a média de notas de um aluno,
+	// a =. Esse método é utilizado para calcular a média de notas de um aluno,
 	// supondo provas diferentes, com diferentes pesos na média final.
+
+	//Supoe-se uma média maxima limite de 20, e uma nota minima de 0.
 	public static double getAverage(int[] grades, int[] weights) {
 		if (grades.length != weights.length) return -1; //Should have same length
 
@@ -18,27 +21,20 @@ public class dSoft2 {
 
 		double mediaFinal = totalGrades / totalWeight;
 
-		if (mediaFinal <= 20)
-			return mediaFinal;
-		else
-			return -1;
+		if (mediaFinal <= 20) return mediaFinal;
+		else return -1;
 	}
 
 	public static boolean hasPassed(double studentAverage) {
 		return studentAverage >= 8;
 	}
 
-	public static String resultMessage(boolean success) {
-		if (success) return "O aluno passou!";
-		else return "O aluno reprovou.";
-	}
-
 	public static String assessStudent(int[] grades, int[] weights) {
 		double studentGrades = getAverage(grades, weights);
-		boolean assessGrades = hasPassed(studentGrades);
-		String result = resultMessage(assessGrades);
+		boolean studentResults = hasPassed(studentGrades);
 
-		return result;
+		if (studentResults) return "O aluno passou com uma media de " + studentGrades;
+		else return "O aluno reprovou com uma media de " + studentGrades;
 	}
 
 	//////////////// QUESTION 02
@@ -77,10 +73,9 @@ public class dSoft2 {
 
 	// QUESTION 04
 	// TODO: TIRAR DUVIDA COM O PROFESSOR
-	public static int conditionalExpression(int num) {
-		if (num == 0) return 0;
-		else if (num < 0) return num;
-		else return (num * 2) - (2 * num);
+	public static int returnLowestNum(int x) {
+		return Math.min(num, 0);
+
 	}
 
 	// QUESTION 05
@@ -91,10 +86,25 @@ public class dSoft2 {
 		double side = Math.sqrt(areaCalc);
 		double volume = Math.pow(side, 3);
 
-		return 0;
+		return volume;
 	}
 
-	public static double getCubeSize(double volume) {
-		return 0;
+	public static String getCubeDescription(double volume) {
+		if (volume < 0) {
+			return "Impossível";
+		} else if (volume <= 1) {
+			return "Pequeno";
+		} else if (volume > 2) {
+			return "Grande";
+		} else return "Médio";
 	}
+
+	public static String describeCube(int area){
+		double cubeVolume = getCubeVolume(area);
+		String cubeDescription = getCubeDescription(cubeVolume);
+		return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume +
+				"cm²";
+	}
+
+	//
 }

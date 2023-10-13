@@ -27,7 +27,18 @@ public class Ex1GradesTest {
 		assertEquals(expected, result, 0.1);
 	}
 
-	@Test
+	@Test //Fronteira Maxima
+	public void averageIsTooHigh() {
+		int[] studentGrades = {20, 50, 30};
+		int[] testWeights = {1, 1, 1};
+
+		double expected = -1;
+		double result = dSoft2.getAverage(studentGrades, testWeights);
+
+		assertEquals(expected, result, 0.1);
+	}
+
+	@Test //Fronteira Minima
 	public void noTestsGiven() {
 		int[] studentGrades = {0, 0, 0};
 		int[] testWeights = {0, 0, 0};
@@ -48,6 +59,7 @@ public class Ex1GradesTest {
 
 		assertTrue(result);
 	}
+
 	@Test
 	public void hasPassedFalse() {
 		int[] studentGrades = {5, 8, 3};
@@ -59,24 +71,26 @@ public class Ex1GradesTest {
 		assertFalse(result);
 	}
 
-	@Test
+	@Test //Baseado no teste 1.
 	public void assessPositiveResults() {
 		int[] studentGrades = {5, 8, 20};
 		int[] testWeights = {5, 3, 2};
 
+		double studentAverage = dSoft2.getAverage(studentGrades, testWeights);
 		String result = dSoft2.assessStudent(studentGrades, testWeights);
-		String expected = "O aluno passou!";
+		String expected = "O aluno passou com uma media de " + studentAverage;
 
 		assertEquals(expected, result);
 	}
 
 	@Test
 	public void assessNegativeResults() {
-		int[] studentGrades = {2, 8, 2};
+		int[] studentGrades = {5, 8, 3};
 		int[] testWeights = {5, 3, 2};
 
+		double studentAverage = dSoft2.getAverage(studentGrades, testWeights);
 		String result = dSoft2.assessStudent(studentGrades, testWeights);
-		String expected = "O aluno reprovou.";
+		String expected = "O aluno reprovou com uma media de " + studentAverage;
 
 		assertEquals(expected, result);
 	}
