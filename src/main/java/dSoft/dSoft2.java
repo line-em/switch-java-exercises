@@ -79,8 +79,8 @@ public class dSoft2 {
 		return Math.sqrt(xDistance + yDistance);
 	}
 
-	// QUESTION 04
-	public static int returnLowestNum(int num) {
+	// QUESTION 04 TODO: DUVIDA
+	public static int returnLowestNegativeNum(int num) {
 		return Math.min(num, 0);
 	}
 
