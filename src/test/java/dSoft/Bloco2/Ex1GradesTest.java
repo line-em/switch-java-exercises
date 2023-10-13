@@ -55,7 +55,7 @@ public class Ex1GradesTest {
 		int[] testWeights = {5, 3, 2};
 
 		double positiveGrades = GradeCalculator.getAverage(studentGrades, testWeights);
-		boolean result = GradeCalculator.hasPassed(positiveGrades);
+		boolean result = GradeCalculator.isApproved(positiveGrades);
 
 		assertTrue(result);
 	}
@@ -66,7 +66,7 @@ public class Ex1GradesTest {
 		int[] testWeights = {5, 3, 2};
 
 		double badGrades = GradeCalculator.getAverage(studentGrades, testWeights);
-		boolean result = GradeCalculator.hasPassed(badGrades);
+		boolean result = GradeCalculator.isApproved(badGrades);
 
 		assertFalse(result);
 	}
