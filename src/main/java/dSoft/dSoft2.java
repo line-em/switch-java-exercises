@@ -122,11 +122,10 @@ public class dSoft2 {
 
 			if (hours < 24 && minutes >= 0 && seconds >= 0)
 				return new int[]{hours, minutes, seconds};
-			else
-				return null;
+			else return null;
 		}
 
-		public static String formatTime(int[] time){
+		public static String formatTime(int[] time) {
 			if (time.length != 3) return "Error";
 			int hour = time[0];
 			int minute = time[1];
@@ -143,33 +142,54 @@ public class dSoft2 {
 			boolean morning = hour > 6 && (hour <= 12 && second < 1);
 			boolean afternoon = hour >= 12 && (hour <= 20 && second > 1);
 
-			if (morning)
-				return "Bom dia! ☺️";
-			else if (afternoon)
-				return "Boa tarde! 😁";
+			if (morning) return "Bom dia! ☺️";
+			else if (afternoon) return "Boa tarde! 😁";
 			else return "Boa noite! 😴";
 		}
 
-		public static String getWelcomeMessage(int seconds){
+		public static String getWelcomeMessage(int seconds) {
 			int[] time = convertTime(seconds);
-			String currentTime =  formatTime(time);
+			String currentTime = formatTime(time);
 			String currentGreeting = getGreeting(time);
 			return currentGreeting + "\nAgora é " + currentTime;
 		}
 	}
 
 	public static class BuildingPaintingJob {
-		public static double getPaintingCosts(){
-			return 0;
+		public static double getPaintingCosts(double buildingSize, double paintCost,
+														  double paintEfficiency) {
+			double paintAmountInL = buildingSize / paintEfficiency;
+			return paintAmountInL * paintCost;
 		}
 
-		public static double getWorkCosts(){
-
-			return 0;
+		public static double getWorkCosts(double buildingSize, double salary) {
+			double workTime = daysNeeded(buildingSize);
+			return workTime * salary;
 		}
 
-		public static double getFullCost(){
-			return 0;
+		public static int daysNeeded(double buildingSize) {
+			int workHours = 8;
+			int dailyShift = 2 * workHours;
+			int painters = getPainters(buildingSize);
+			float totalDays = (float) buildingSize / (dailyShift * painters);
+
+			return Math.round(totalDays); //Pois mesmo que seja
+		}
+
+		public static int getPainters(double buildingSize) {
+			if (buildingSize < 0) return -1;
+			if (buildingSize < 100) return 1;
+			else if (buildingSize > 100 && buildingSize < 300) return 2;
+			else if (buildingSize > 300 && buildingSize < 1000) return 3;
+			return 4;
+		}
+
+		public static double getFullCost(double buildingSize, double paintCost,
+													double paintEfficiency, double salary) {
+			double totalWorkCost = getWorkCosts(buildingSize, salary);
+			double totalPaintingCost = getPaintingCosts(buildingSize, paintCost,
+					paintEfficiency);
+			return totalPaintingCost + totalWorkCost;
 		}
 	}
 }
