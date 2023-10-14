@@ -195,16 +195,19 @@ public class dSoft2 {
 	public static class BuildingPaintingJob {
 		public static double getPaintingCosts(double buildingSize, double paintCost,
 														  double paintEfficiency) {
+			if (buildingSize < 0 || paintEfficiency < 0 || paintCost < 0) return -1;
 			double paintAmountInL = buildingSize / paintEfficiency;
 			return paintAmountInL * paintCost;
 		}
 
 		public static double getWorkCosts(double buildingSize, double salary) {
+			if (buildingSize <= 0 || salary <= 0) return -1;
 			double workTime = daysNeeded(buildingSize);
 			return workTime * salary;
 		}
 
 		public static int daysNeeded(double buildingSize) {
+			if (buildingSize < 0) return -1;
 			int workHours = 8;
 			int dailyShift = 2 * workHours;
 			int painters = getPainters(buildingSize);
@@ -223,6 +226,8 @@ public class dSoft2 {
 
 		public static double getFullCost(double buildingSize, double paintCost,
 													double paintEfficiency, double salary) {
+			if (buildingSize < 0 || paintEfficiency < 0 || salary < 0 || paintCost < 0)
+				return -1;
 			double totalWorkCost = getWorkCosts(buildingSize, salary);
 			double totalPaintingCost = getPaintingCosts(buildingSize, paintCost,
 																	  paintEfficiency);
@@ -231,23 +236,18 @@ public class dSoft2 {
 	}
 
 	// QUESTION 8
-	//TODO: CHANGE
-	public static int verifyMultiple(int x, int y) {
-		if (x <= 0 || y <= 0) return -1;
-		else if (x == y) return -2;
-		else if (x % y == 0) return -3;
-		else return 0;
+	public static boolean isMultiple(int x, int y) {
+		return y != 0 && x % y == 0;
 	}
 
-	public static int getMultipleMessage(int x, int y) {
-		//		int results = verifyMultiple(x, y);
-		//		if (multiple) return x + "é múltiplo de " + y;
-		//		else return x + " não é múltiplo de " + y;
-		return 0;
+	public static String getMultipleMessage(int num1, int num2) {
+		if (isMultiple(num1, num2)) return num1 + " é múltiplo de " + num2;
+		else if (isMultiple(num2, num1)) return num2 + " é múltiplo de " + num1;
+		else return num1 + " não é múltiplo de " + num2;
 	}
 
 	// QUESTION 9
-	// TODO: tirar duvida com moço
+	// Returns the errors and conditions
 	public static int verifySequence(int num) {
 		boolean isThreeDigits = DigitMethods.verifyLength(num);
 		if (!isThreeDigits) return -2;

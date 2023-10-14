@@ -1,11 +1,8 @@
 package dSoft.Bloco2;
 
 import org.junit.Test;
-//import static dSoft.dSoft2.GradeCalculator.getClassAverage;
 import static dSoft.dSoft2.GradeCalculator.*;
-import static dSoft.dSoft2.Greetings.getGreeting;
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertAll;
 
 public class Ex11ClassAverageTest {
 	@Test

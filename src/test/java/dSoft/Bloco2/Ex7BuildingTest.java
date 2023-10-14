@@ -1,10 +1,115 @@
 package dSoft.Bloco2;
 
-import org.junit.Test;
+import dSoft.dSoft2;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Ex7BuildingTest {
-	@Test
-	public void validWorkValues(){
 
+	@Test
+	public void validDaysNeeded() {
+		double buildingSize = 123.4;
+		int expected = 4;
+		int results = dSoft2.BuildingPaintingJob.daysNeeded(buildingSize);
+		assertEquals(expected, results);
+	}
+	@Test
+	public void invalidDaysNeeded() {
+		double buildingSize = -123.4;
+		int expected = -1;
+		int results = dSoft2.BuildingPaintingJob.daysNeeded(buildingSize);
+		assertEquals(expected, results);
+	}
+
+	@Test
+	public void validFullCost() {
+		double buildingSize = 123.4;
+		double paintCost = 12;
+		double paintEfficiency = 2;
+		double salary = 200;
+		double expected = 1540.4;
+		double results = dSoft2.BuildingPaintingJob.getFullCost(buildingSize, paintCost, paintEfficiency, salary);
+
+		assertEquals(expected, results, 0.1);
+	}
+
+	@Test
+	public void invalidFullCost() {
+		double buildingSize = 800;
+		double paintCost = -12;
+		double paintEfficiency = 0;
+		double salary = 0;
+		double expected = -1;
+		double results = dSoft2.BuildingPaintingJob.getFullCost(buildingSize, paintCost, paintEfficiency, salary);
+
+		assertEquals(expected, results, 0.1);
+	}
+
+	@Test
+	public void smallestFullCost() {
+		double buildingSize = 1;
+		double paintCost = 1;
+		double paintEfficiency = 1;
+		double salary = 1;
+		double expected = 1;
+		double results = dSoft2.BuildingPaintingJob.getFullCost(buildingSize, paintCost, paintEfficiency, salary);
+
+		assertEquals(expected, results, 0.1);
+	}
+
+	@Test
+	public void validGetPainters() {
+		double buildingSize = 123.4;
+		int expected = 2;
+		int results = dSoft2.BuildingPaintingJob.getPainters(buildingSize);
+		assertEquals(expected, results);
+	}
+
+	@Test
+	public void invalidGetPainters() {
+		double buildingSize = -200;
+		int expected = -1;
+		int results = dSoft2.BuildingPaintingJob.getPainters(buildingSize);
+		assertEquals(expected, results);
+	}
+
+	@Test
+	public void validPaintingCosts() {
+		double buildingSize = 123.4;
+		double paintCost = 10;
+		double paintEfficiency = 2;
+		double expected = 617;
+		double results = dSoft2.BuildingPaintingJob.getPaintingCosts(buildingSize, paintCost, paintEfficiency);
+
+		assertEquals(expected, results, 0.1);
+	}
+
+	@Test
+	public void invalidPaintingCosts() {
+		double buildingSize = 123.4;
+		double paintCost = 0;
+		double paintEfficiency = -2;
+		double expected = -1;
+		double results = dSoft2.BuildingPaintingJob.getPaintingCosts(buildingSize, paintCost, paintEfficiency);
+
+		assertEquals(expected, results, 0.1);
+	}
+	@Test
+	public void validWorkCosts() {
+		double buildingSize = 222;
+		double salary = 250;
+		double expected = 1750;
+		double actual = dSoft2.BuildingPaintingJob.getWorkCosts(buildingSize, salary);
+
+		assertEquals(expected, actual, 0.0000001D);
+	}
+
+	@Test public void invalidWorkCosts() {
+		double buildingSize = 222;
+		double salary = 0;
+		double expected = -1;
+		double actual = dSoft2.BuildingPaintingJob.getWorkCosts(buildingSize, salary);
+
+		assertEquals(expected, actual, 0.0000001D);
 	}
 }
