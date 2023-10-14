@@ -52,14 +52,19 @@ public class dSoft2 {
 			return ((double) isApprovedCount / numOfStudents);
 		}
 
-		public static String getClassAssessment(double percentApproved) {
-			if (percentApproved > 1 || percentApproved < 0) return "Error";
-			else if (percentApproved < 0.2) return "Turma má";
-			else if (percentApproved < 0.5) return "Turma fraca";
-			else if (percentApproved < 0.7) return "Turma razoável";
-			else if (percentApproved < 0.9) return "Turma boa";
+		public static String getClassAssessment(double percentApproved, double upperLimit,
+															 double lowerLimit) {
+			if (lowerLimit > upperLimit || lowerLimit == upperLimit) return "Error";
+			if (lowerLimit < 0) return "Error";
+			if (percentApproved > upperLimit || percentApproved < lowerLimit) return
+					"Error";
+			else if (percentApproved < 0.2 + lowerLimit) return "Turma má";
+			else if (percentApproved < 0.5 + lowerLimit) return "Turma fraca";
+			else if (percentApproved < 0.7 + lowerLimit) return "Turma razoável";
+			else if (percentApproved < 0.9 + lowerLimit) return "Turma boa";
 			else return "Turma Excelente";
 		}
+
 	}
 
 	//////////////// QUESTION 02
@@ -278,4 +283,114 @@ public class dSoft2 {
 			return price * currentDiscount;
 		}
 	}
+
+	// QUESTION 12
+	// TODO: Is this really it? MAKE TESTS.
+	public static String sendPollutionNotification(double pollution) {
+		if (pollution < 0) return "Error";
+		boolean none = pollution == 0;
+		boolean acceptable = pollution <= 0.3;
+		boolean light = pollution > 0.3 && pollution < 0.4;
+		boolean moderate = pollution >= 0.4 && pollution < 0.5;
+
+		if (none) return "No pollution!";
+		else if (acceptable) return "Pollution within acceptable values";
+		else if (light) return "Industries from group 1, seize your activities.";
+		else if (moderate) return "Industries from group 1 & 2, seize your activities.";
+		return "Industries from group 1, 2 & 3, seize your activities.";
+	}
+
+	// question 13
+	public static class GardenCostCalculator {
+		static int grassCost = 10;
+		static int grassTimeInSquareMeters = 300;
+		static int treeCost = 10;
+		static int treeTimeForEach = 600;
+		static int bushCost = 15;
+		static int bushTimeForEach = 400;
+		static int hourlyWage = 10;
+
+		public static double getGrassCost(int areaInSquareMeters) {
+			if (areaInSquareMeters < 0) return -1;
+			return grassCost * areaInSquareMeters;
+		}
+
+		public static int getGrassTime(int areaInSquareMeters) {
+			if (areaInSquareMeters < 0) return -1;
+			return grassTimeInSquareMeters * areaInSquareMeters;
+		}
+
+		public static double getTreeCost(int quantity) {
+			if (quantity < 0) return -1;
+			return treeCost * quantity;
+		}
+
+		public static int getTreeTime(int quantity) {
+			if (quantity < 0) return -1;
+			return treeTimeForEach * quantity;
+		}
+
+		public static double getBushCost(int quantity) {
+			if (quantity < 0) return -1;
+			return bushTimeForEach * quantity;
+		}
+
+		public static int getBushTime(int quantity) {
+			if (quantity < 0) return -1;
+			return bushCost * quantity;
+		}
+
+		public static int getSalary(int totalTimeInSeconds) {
+			if (totalTimeInSeconds < 0) return -1;
+			int time = totalTimeInSeconds / 3600;
+			return time * hourlyWage;
+		}
+
+		public static int getTotalTime(int treeQuantity, int bushQuantity,
+												 int areaInSquareMeters) {
+			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return
+					-1;
+			int treeTime = getTreeTime(treeQuantity);
+			int bushTime = getBushTime(bushQuantity);
+			int grassTime = getTreeTime(areaInSquareMeters);
+			return treeTime + bushTime + grassTime;
+		}
+
+		public static String getTotalTimeInHours(int totalTimeInSeconds){
+			if (totalTimeInSeconds < 0) return "Error";
+			int[] time = Greetings.convertTime(totalTimeInSeconds);
+			return Greetings.formatTime(time);
+		}
+
+		public static double getTotalCost(int areaInSquareMeters, int treeQuantity,
+													 int bushQuantity) {
+			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return
+					-1;
+			double totalBushCost = getBushCost(bushQuantity);
+			double totalGrassCost = getGrassCost(areaInSquareMeters);
+			double totalTreeCost = getTreeCost(treeQuantity);
+			int totalTime = getTotalTime(treeQuantity, bushQuantity, areaInSquareMeters);
+			double salary = getSalary(totalTime);
+			return totalTreeCost + totalGrassCost + totalBushCost + salary;
+		}
+
+	}
+
+	// QUESTION 18
+	public static int[] getFinishTime(int[] startTime, int duration) {
+		if (startTime.length != 3) return new int[]{-1};
+		if (startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 ||
+			 startTime[1] >= 59 || startTime[2] < 0 || startTime[2] >= 59)
+			return new int[]{-1};
+		if (duration < 0) return new int[]{-2};
+
+		int[] durationTime = Greetings.convertTime(duration);
+		int[] finishTime = new int[3];
+		finishTime[0] = durationTime[0] + startTime[0];
+		finishTime[1] = durationTime[1] + startTime[1];
+		finishTime[2] = durationTime[2] + startTime[2];
+
+		return finishTime;
+	}
+
 }

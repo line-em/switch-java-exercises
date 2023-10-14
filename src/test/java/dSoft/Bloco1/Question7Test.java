@@ -1,5 +1,4 @@
 package dSoft.Bloco1;
-//TODO: Make tests for all 3 expressions.
 import dSoft.dSoft1;
 import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
