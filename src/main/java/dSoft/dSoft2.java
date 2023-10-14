@@ -1,24 +1,7 @@
 package dSoft;
 
-import java.sql.Time;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class dSoft2 {
-	/////////////// QUESTION 03
-	public static double getDistanceBetweenPoints(int x1, int x2, int y1, int y2) {
-		double xDistance = Math.pow(x1 - x2, 2);
-		double yDistance = Math.pow(y1 - y2, 2);
-
-		return Math.sqrt(xDistance + yDistance);
-	}
-
-	// QUESTION 04 TODO: DUVIDA
-	public static int returnLowestNegativeNum(int num) {
-		return Math.min(num, 0);
-	}
-
-	/////////////// QUESTION 01
+	/////////////// QUESTION 01 + 11
 	public static class GradeCalculator {
 		// a =. Esse método é utilizado para calcular a média de notas de um aluno,
 		// supondo provas diferentes, com diferentes pesos na média final.
@@ -45,12 +28,37 @@ public class dSoft2 {
 			return studentAverage >= 8;
 		}
 
-		public static String assessStudent(int[] grades, int[] weights) {
+		public static boolean assessStudent(int[] grades, int[] weights) {
+			double studentGrades = getAverage(grades, weights);
+			return isApproved(studentGrades);
+		}
+
+		public static String assessStudentMessage(int[] grades, int[] weights) {
 			double studentGrades = getAverage(grades, weights);
 			boolean approved = isApproved(studentGrades);
 
 			if (approved) return "O aluno passou com uma media de " + studentGrades;
 			else return "O aluno reprovou com uma media de " + studentGrades;
+		}
+
+		// QUESTION 11
+		public static double getPercentApproved(boolean... isApproved) {
+			int numOfStudents = isApproved.length;
+			int isApprovedCount = 0;
+
+			for (boolean approved : isApproved) {
+				if (approved) isApprovedCount++;
+			}
+			return ((double) isApprovedCount / numOfStudents);
+		}
+
+		public static String getClassAssessment(double percentApproved) {
+			if (percentApproved > 1 || percentApproved < 0) return "Error";
+			else if (percentApproved < 0.2) return "Turma má";
+			else if (percentApproved < 0.5) return "Turma fraca";
+			else if (percentApproved < 0.7) return "Turma razoável";
+			else if (percentApproved < 0.9) return "Turma boa";
+			else return "Turma Excelente";
 		}
 	}
 
@@ -71,7 +79,7 @@ public class dSoft2 {
 				return digits;
 			}
 			else {
-				return null;
+				return new int[]{-1};
 			}
 		}
 
@@ -83,6 +91,19 @@ public class dSoft2 {
 		public enum EvenOdd {
 			EVEN, ODD
 		}
+	}
+
+	/////////////// QUESTION 03
+	public static double getDistanceBetweenPoints(int x1, int x2, int y1, int y2) {
+		double xDistance = Math.pow(x1 - x2, 2);
+		double yDistance = Math.pow(y1 - y2, 2);
+
+		return Math.sqrt(xDistance + yDistance);
+	}
+
+	// QUESTION 04 TODO: DUVIDA
+	public static int returnLowestNegativeNum(int num) {
+		return Math.min(num, 0);
 	}
 
 	// QUESTION 05
@@ -118,7 +139,7 @@ public class dSoft2 {
 	}
 
 	// QUESTION 6
-	// Contraint: Limited to a 24h-range.
+	// Constraint: Limited to a 24h-range.
 	public static class Greetings {
 		public static int[] convertTime(int totalSeconds) {
 			if (totalSeconds < 0 || totalSeconds >= 24 * 3600) return new int[]{-1};
@@ -170,6 +191,7 @@ public class dSoft2 {
 		}
 	}
 
+	// QUESTION 7
 	public static class BuildingPaintingJob {
 		public static double getPaintingCosts(double buildingSize, double paintCost,
 														  double paintEfficiency) {
@@ -205,6 +227,55 @@ public class dSoft2 {
 			double totalPaintingCost = getPaintingCosts(buildingSize, paintCost,
 																	  paintEfficiency);
 			return totalPaintingCost + totalWorkCost;
+		}
+	}
+
+	// QUESTION 8
+	//TODO: CHANGE
+	public static int verifyMultiple(int x, int y) {
+		if (x <= 0 || y <= 0) return -1;
+		else if (x == y) return -2;
+		else if (x % y == 0) return -3;
+		else return 0;
+	}
+
+	public static int getMultipleMessage(int x, int y) {
+		//		int results = verifyMultiple(x, y);
+		//		if (multiple) return x + "é múltiplo de " + y;
+		//		else return x + " não é múltiplo de " + y;
+		return 0;
+	}
+
+	// QUESTION 9
+	// TODO: tirar duvida com moço
+	public static int verifySequence(int num) {
+		boolean isThreeDigits = DigitMethods.verifyLength(num);
+		if (!isThreeDigits) return -2;
+
+		int[] digits = DigitMethods.getDigits(num);
+		boolean firstCondition = digits[1] == digits[0] + 1;
+		boolean secondCondition = digits[2] == digits[1] + 1;
+
+		return firstCondition && secondCondition ? 0 : -1;
+	}
+
+	// a boolean method that is easier to use.
+	public static boolean isSequence(int num) {
+		return verifySequence(num) == 0;
+	}
+
+	// QUESTION 10
+	public static class DiscountCalculator {
+		public static double getDiscount(double price) {
+			if (price > 200) return 0.6;
+			else if (price > 100) return 0.4;
+			else if (price > 50) return 0.3;
+			else return 0.2;
+		}
+
+		public static double getDiscountPrice(double price) {
+			double currentDiscount = getDiscount(price);
+			return price * currentDiscount;
 		}
 	}
 }

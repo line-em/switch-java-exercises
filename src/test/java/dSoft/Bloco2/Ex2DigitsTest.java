@@ -32,8 +32,9 @@ public class Ex2DigitsTest {
 	@Test
 	public void invalidInput() {
 		int providedNum = 5;
+		int[] expected = {-1};
 		int[] result = DigitMethods.getDigits(providedNum);
-		assertNull(result);
+		assertArrayEquals(expected, result);
 	}
 
 	@Test
