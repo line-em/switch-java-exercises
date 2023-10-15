@@ -1,7 +1,7 @@
 package dSoft.Bloco2;
 
 import org.junit.Test;
-import static dSoft.dSoft2.Greetings.*;
+import static dSoft.dSoft2.Time.*;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertAll;
 

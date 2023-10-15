@@ -33,28 +33,28 @@ public class Ex9SequenceTest {
 
 	@Test
 	public void notEnoughDigits() {
-		int expected = -2;
+		byte expected = -2;
 		int results = dSoft2.verifySequence(0);
 		assertEquals(expected, results);
 	}
 
 	@Test
 	public void noSequenceError() {
-		int expected = -1;
+		byte expected = -1;
 		int results = dSoft2.verifySequence(101);
 		assertEquals(expected, results);
 	}
 
 	@Test
 	public void isSequence() {
-		int expected = 0;
+		byte expected = 0;
 		int results = dSoft2.verifySequence(123);
 		assertEquals(expected, results);
 	}
 
 	@Test
 	public void verifySequence12() {
-		int expected = -2;
+		byte expected = -2;
 		int results = dSoft2.verifySequence(-999);
 		assertEquals(expected, results);
 	}

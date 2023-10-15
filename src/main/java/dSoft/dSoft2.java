@@ -144,8 +144,8 @@ public class dSoft2 {
 	}
 
 	// QUESTION 6
-	// Constraint: Limited to a 24h-range.
-	public static class Greetings {
+	// Constraint: Limited to a 24h-range. Get greetings
+	public static class Time {
 		public static int[] convertTime(int totalSeconds) {
 			if (totalSeconds < 0 || totalSeconds >= 24 * 3600) return new int[]{-1};
 			int hours = totalSeconds / 3600;
@@ -272,6 +272,7 @@ public class dSoft2 {
 	// QUESTION 10
 	public static class DiscountCalculator {
 		public static double getDiscount(double price) {
+			if (price <= 0) return -1;
 			if (price > 200) return 0.6;
 			else if (price > 100) return 0.4;
 			else if (price > 50) return 0.3;
@@ -279,8 +280,13 @@ public class dSoft2 {
 		}
 
 		public static double getDiscountPrice(double price) {
-			double currentDiscount = getDiscount(price);
-			return price * currentDiscount;
+			if (price <= 0) return -1;
+
+			double discount = getDiscount(price);
+			double currentDiscount = price * discount;
+			double currentPrice = price - currentDiscount;
+
+			return currentPrice;
 		}
 	}
 
@@ -348,24 +354,22 @@ public class dSoft2 {
 
 		public static int getTotalTime(int treeQuantity, int bushQuantity,
 												 int areaInSquareMeters) {
-			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return
-					-1;
+			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
 			int treeTime = getTreeTime(treeQuantity);
 			int bushTime = getBushTime(bushQuantity);
 			int grassTime = getTreeTime(areaInSquareMeters);
 			return treeTime + bushTime + grassTime;
 		}
 
-		public static String getTotalTimeInHours(int totalTimeInSeconds){
+		public static String getTotalTimeInHours(int totalTimeInSeconds) {
 			if (totalTimeInSeconds < 0) return "Error";
-			int[] time = Greetings.convertTime(totalTimeInSeconds);
-			return Greetings.formatTime(time);
+			int[] time = Time.convertTime(totalTimeInSeconds);
+			return Time.formatTime(time);
 		}
 
 		public static double getTotalCost(int areaInSquareMeters, int treeQuantity,
 													 int bushQuantity) {
-			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return
-					-1;
+			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
 			double totalBushCost = getBushCost(bushQuantity);
 			double totalGrassCost = getGrassCost(areaInSquareMeters);
 			double totalTreeCost = getTreeCost(treeQuantity);
@@ -373,7 +377,6 @@ public class dSoft2 {
 			double salary = getSalary(totalTime);
 			return totalTreeCost + totalGrassCost + totalBushCost + salary;
 		}
-
 	}
 
 	// QUESTION 18
@@ -384,7 +387,7 @@ public class dSoft2 {
 			return new int[]{-1};
 		if (duration < 0) return new int[]{-2};
 
-		int[] durationTime = Greetings.convertTime(duration);
+		int[] durationTime = Time.convertTime(duration);
 		int[] finishTime = new int[3];
 		finishTime[0] = durationTime[0] + startTime[0];
 		finishTime[1] = durationTime[1] + startTime[1];
@@ -392,5 +395,4 @@ public class dSoft2 {
 
 		return finishTime;
 	}
-
 }
