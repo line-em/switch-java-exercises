@@ -96,7 +96,7 @@ public class Ex1GradesTest {
 	}
 
 	@Test
-	public void testAssessStudentEmpty() {
+	public void assessStudentEmpty() {
 		int[] studentGrades = {};
 		int[] testWeights = {};
 		boolean result = GradeCalculator.assessStudent(studentGrades, testWeights);

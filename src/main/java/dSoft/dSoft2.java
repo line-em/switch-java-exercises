@@ -3,9 +3,6 @@ package dSoft;
 public class dSoft2 {
 	/////////////// QUESTION 01 + 11
 	public static class GradeCalculator {
-		// a =. Esse método é utilizado para calcular a média de notas de um aluno,
-		// supondo provas diferentes, com diferentes pesos na média final.
-		//Supoe-se uma média maxima limite de 20, e uma nota minima de 0.
 		public static double getAverage(int[] grades, int[] weights) {
 			if (grades.length != weights.length) return -1; //Should have same length
 
@@ -18,9 +15,9 @@ public class dSoft2 {
 				totalGrades += grades[i] * weights[i];
 			}
 
-			double mediaFinal = totalGrades / totalWeight;
+			double finalGrade = totalGrades / totalWeight;
 
-			if (mediaFinal <= 20) return mediaFinal;
+			if (finalGrade <= 20) return finalGrade;
 			else return -1;
 		}
 
@@ -49,6 +46,7 @@ public class dSoft2 {
 			for (boolean approved : isApproved) {
 				if (approved) isApprovedCount++;
 			}
+
 			return ((double) isApprovedCount / numOfStudents);
 		}
 
@@ -218,7 +216,7 @@ public class dSoft2 {
 			int painters = getPainters(buildingSize);
 			float totalDays = (float) buildingSize / (dailyShift * painters);
 
-			return Math.round(totalDays); //Pois mesmo que seja
+			return Math.round(totalDays);
 		}
 
 		public static int getPainters(double buildingSize) {
@@ -274,9 +272,9 @@ public class dSoft2 {
 		public static double getDiscount(double price) {
 			if (price <= 0) return -1;
 			if (price > 200) return 0.6;
-			else if (price > 100) return 0.4;
-			else if (price > 50) return 0.3;
-			else return 0.2;
+			if (price > 100) return 0.4;
+			if (price > 50) return 0.3;
+			return 0.2;
 		}
 
 		public static double getDiscountPrice(double price) {
@@ -284,25 +282,24 @@ public class dSoft2 {
 
 			double discount = getDiscount(price);
 			double currentDiscount = price * discount;
-			double currentPrice = price - currentDiscount;
-
-			return currentPrice;
+			return price - currentDiscount;
 		}
 	}
 
+	// QUESTION 11 - see GradeCalculator
+
 	// QUESTION 12
-	// TODO: Is this really it? MAKE TESTS.
 	public static String sendPollutionNotification(double pollution) {
-		if (pollution < 0) return "Error";
+		if (pollution < 0 || pollution > 1) return "Error";
 		boolean none = pollution == 0;
 		boolean acceptable = pollution <= 0.3;
 		boolean light = pollution > 0.3 && pollution < 0.4;
 		boolean moderate = pollution >= 0.4 && pollution < 0.5;
 
-		if (none) return "No pollution!";
-		else if (acceptable) return "Pollution within acceptable values";
-		else if (light) return "Industries from group 1, seize your activities.";
-		else if (moderate) return "Industries from group 1 & 2, seize your activities.";
+		if (none) return "No pollution metric.";
+		if (acceptable) return "Pollution within acceptable values";
+		if (light) return "Industries from group 1, seize your activities.";
+		if (moderate) return "Industries from group 1 & 2, seize your activities.";
 		return "Industries from group 1, 2 & 3, seize your activities.";
 	}
 
@@ -376,6 +373,99 @@ public class dSoft2 {
 			int totalTime = getTotalTime(treeQuantity, bushQuantity, areaInSquareMeters);
 			double salary = getSalary(totalTime);
 			return totalTreeCost + totalGrassCost + totalBushCost + salary;
+		}
+	}
+
+	// QUESTION 14
+	public static class DistanceCalculator {
+		public static double convertMilesToKm(double distanceInMiles) {
+			double distanceInM = distanceInMiles * 1069;
+			double distanceInKm = distanceInM / 1000;
+			return distanceInKm;
+		}
+
+		public static double getAverageTravelledDistanceInMiles(int[] distanceInMiles) {
+			if (distanceInMiles.length < 1) return -1;
+			int totalDistance = 0;
+			int totalDays = distanceInMiles.length;
+
+			for (int distance : distanceInMiles) {
+				if (distance < 0) return -1;
+				totalDistance += distance;
+			}
+			return (double) totalDistance / totalDays;
+		}
+
+		public static double getAverageTravelledDistanceInKm(int[] distanceInMiles) {
+			if (distanceInMiles.length < 1) return -1;
+			double rawDistance = getAverageTravelledDistanceInMiles(distanceInMiles);
+			double distanceInKm = convertMilesToKm(rawDistance);
+
+			return distanceInKm;
+		}
+	}
+
+	// QUESTION 15
+	public static class Triangles {
+
+		public static boolean hasEnoughSides(int[] sides) {
+			return sides.length == 3;
+		}
+
+		public static boolean isTrianglePossible(int[] sides) {
+			if (!hasEnoughSides(sides)) return false;
+			if (sides[0] < 0 && sides[1] < 0 && sides[2] < 0) return false;
+
+			boolean conditionA = sides[0] < sides[1] + sides[2];
+			boolean conditionB = sides[1] < sides[2] + sides[0];
+			boolean conditionC = sides[2] < sides[0] + sides[1];
+
+			return conditionA && conditionB && conditionC;
+		}
+
+		public enum TriangleTypes {
+			ISOSCELES, EQUILATERAL, SCALENE
+		}
+
+		public static boolean isEquilateral(int[] sides) {
+			if (isTrianglePossible(sides)) {
+				for (int side : sides) {
+					if (side != sides[0]) return false;
+				}
+				return true;
+			}
+			return false;
+		}
+
+		public static boolean isScalene(int[] sides) {
+			if (isTrianglePossible(sides)) {
+				boolean conditionA = sides[0] != sides[1];
+				boolean conditionB = sides[1] != sides[2];
+				boolean conditionC = sides[2] != sides[0];
+
+				return conditionA && conditionB && conditionC;
+			}
+			return false;
+		}
+
+		public static boolean isIsosceles(int[] sides) {
+			if (isTrianglePossible(sides)) {
+				boolean conditionA = sides[0] == sides[1];
+				boolean conditionB = sides[1] == sides[2];
+				boolean conditionC = sides[2] == sides[0];
+
+				return conditionA || conditionB || conditionC;
+			}
+
+			return false;
+		}
+
+		public static TriangleTypes getTriangleType(int[] sides) {
+			if (!isTrianglePossible(sides)) return null;
+			if (isIsosceles(sides)) return TriangleTypes.ISOSCELES;
+			if (isEquilateral(sides)) return TriangleTypes.EQUILATERAL;
+			if (isScalene(sides)) return TriangleTypes.SCALENE;
+			return null;
 		}
 	}
 
