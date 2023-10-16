@@ -516,6 +516,7 @@ public class dSoft2 {
 	}
 
 	// QUESTION 18
+	// INCOMPLETE
 	public static int[] getFinishTime(int[] startTime, int duration) {
 		if (startTime.length != 3) return new int[]{-1};
 		if (startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 || startTime[1] >= 59 ||
