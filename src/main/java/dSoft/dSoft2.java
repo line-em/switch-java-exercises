@@ -54,8 +54,7 @@ public class dSoft2 {
 
 		public static String getClassAssessment(double percentApproved, double upperLimit,
 															 double lowerLimit) {
-			if (lowerLimit > upperLimit || lowerLimit == upperLimit) return "Error";
-			if (lowerLimit < 0) return "Error";
+			if (lowerLimit > upperLimit || lowerLimit == upperLimit || lowerLimit < 0) return "Error";
 			if (percentApproved > upperLimit || percentApproved < lowerLimit) return "Error";
 			else if (percentApproved < 0.2 + lowerLimit) return "Turma má";
 			else if (percentApproved < 0.5 + lowerLimit) return "Turma fraca";
@@ -296,16 +295,16 @@ public class dSoft2 {
 
 	// question 13
 	public static class GardenCostCalculator {
-		final static int grassCost = 10;
+		final static double grassCost = 10;
 		final static int grassTimeInSquareMeters = 300;
-		final static int treeCost = 10;
+		final static double treeCost = 10;
 		final static int treeTimeForEach = 600;
-		final static int bushCost = 15;
+		final static double bushCost = 15;
 		final static int bushTimeForEach = 400;
 		final static int hourlyWage = 10;
 
 		public static double getGrassCost(int areaInSquareMeters) {
-			if (areaInSquareMeters < 0) return -1;
+			if (areaInSquareMeters <= 0) return -1;
 			return grassCost * areaInSquareMeters;
 		}
 
@@ -326,12 +325,12 @@ public class dSoft2 {
 
 		public static double getBushCost(int quantity) {
 			if (quantity < 0) return -1;
-			return bushTimeForEach * quantity;
+			return bushCost * quantity;
 		}
 
 		public static int getBushTime(int quantity) {
 			if (quantity < 0) return -1;
-			return bushCost * quantity;
+			return bushTimeForEach * quantity;
 		}
 
 		public static int getSalary(int totalTimeInSeconds) {
@@ -356,7 +355,7 @@ public class dSoft2 {
 
 		public static double getTotalCost(int areaInSquareMeters, int treeQuantity,
 													 int bushQuantity) {
-			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
+			if (bushQuantity < 0 || areaInSquareMeters <= 0 || treeQuantity < 0) return -1;
 			double totalBushCost = getBushCost(bushQuantity);
 			double totalGrassCost = getGrassCost(areaInSquareMeters);
 			double totalTreeCost = getTreeCost(treeQuantity);
@@ -371,13 +370,14 @@ public class dSoft2 {
 		public static double getAverageTravelledDistanceInKm(int[] distanceInMiles) {
 			if (distanceInMiles.length < 1) return -1;
 			double distance = getAverageTravelledDistanceInMiles(distanceInMiles);
-			return convertMilesToKm(distance);
+			if (distance == -1) return -1;
+			else return convertMilesToKm(distance);
 		}
 
 		public static double convertMilesToKm(double distanceInMiles) {
+			if (distanceInMiles < 0) return -1;
 			double distanceInM = distanceInMiles * 1069;
-			double distanceInKm = distanceInM / 1000;
-			return distanceInKm;
+			return distanceInM / 1000;
 		}
 
 		public static double getAverageTravelledDistanceInMiles(int[] distanceInMiles) {
@@ -398,8 +398,8 @@ public class dSoft2 {
 
 		public static TriangleTypes getTriangleType(int[] sides) {
 			if (!isTrianglePossible(sides)) return null;
-			if (isIsosceles(sides)) return TriangleTypes.ISOSCELES;
 			if (isEquilateral(sides)) return TriangleTypes.EQUILATERAL;
+			if (isIsosceles(sides)) return TriangleTypes.ISOSCELES;
 			if (isScalene(sides)) return TriangleTypes.SCALENE;
 			return null;
 		}
@@ -414,7 +414,7 @@ public class dSoft2 {
 
 		public static boolean isTrianglePossible(int[] sides) {
 			if (!hasEnoughSides(sides)) return false;
-			if (sides[0] < 0 && sides[1] < 0 && sides[2] < 0) return false;
+			if (sides[0] < 0 || sides[1] < 0 || sides[2] < 0) return false;
 
 			boolean conditionA = sides[0] < sides[1] + sides[2];
 			boolean conditionB = sides[1] < sides[2] + sides[0];
