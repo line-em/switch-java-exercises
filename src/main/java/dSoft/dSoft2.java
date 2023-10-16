@@ -305,13 +305,13 @@ public class dSoft2 {
 
 	// question 13
 	public static class GardenCostCalculator {
-		static int grassCost = 10;
-		static int grassTimeInSquareMeters = 300;
-		static int treeCost = 10;
-		static int treeTimeForEach = 600;
-		static int bushCost = 15;
-		static int bushTimeForEach = 400;
-		static int hourlyWage = 10;
+		final static int grassCost = 10;
+		final static int grassTimeInSquareMeters = 300;
+		final static int treeCost = 10;
+		final static int treeTimeForEach = 600;
+		final static int bushCost = 15;
+		final static int bushTimeForEach = 400;
+		final static int hourlyWage = 10;
 
 		public static double getGrassCost(int areaInSquareMeters) {
 			if (areaInSquareMeters < 0) return -1;
@@ -354,7 +354,7 @@ public class dSoft2 {
 			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
 			int treeTime = getTreeTime(treeQuantity);
 			int bushTime = getBushTime(bushQuantity);
-			int grassTime = getTreeTime(areaInSquareMeters);
+			int grassTime = getGrassTime(areaInSquareMeters);
 			return treeTime + bushTime + grassTime;
 		}
 
@@ -519,10 +519,17 @@ public class dSoft2 {
 
 			int[] trainArrival = new int[2];
 			trainArrival[0] = trainDeparture[0] + travelDuration[0];
+			trainArrival[1] = trainDeparture[1] + travelDuration[2];
+
+			if (isSameDayArrival(trainArrival)) {
+				return null;
+			}
+			else {
+				return null;
+			}
 		}
 
-		public static boolean isSameDayArrival(int[] trainsDeparture,
-															int[] travelDuration) {
+		public static boolean isSameDayArrival(int[] trainArrival) {
 
 		}
 
