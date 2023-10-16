@@ -1,5 +1,7 @@
 package dSoft;
 
+import java.util.Arrays;
+
 public class dSoft2 {
 	/////////////// QUESTION 01 + 11
 	public static class GradeCalculator {
@@ -54,8 +56,7 @@ public class dSoft2 {
 															 double lowerLimit) {
 			if (lowerLimit > upperLimit || lowerLimit == upperLimit) return "Error";
 			if (lowerLimit < 0) return "Error";
-			if (percentApproved > upperLimit || percentApproved < lowerLimit) return
-					"Error";
+			if (percentApproved > upperLimit || percentApproved < lowerLimit) return "Error";
 			else if (percentApproved < 0.2 + lowerLimit) return "Turma má";
 			else if (percentApproved < 0.5 + lowerLimit) return "Turma fraca";
 			else if (percentApproved < 0.7 + lowerLimit) return "Turma razoável";
@@ -120,15 +121,9 @@ public class dSoft2 {
 		}
 
 		public static String getCubeDescription(double volume) {
-			if (volume <= 0) {
-				return "Impossível";
-			}
-			else if (volume <= 1) {
-				return "Pequeno";
-			}
-			else if (volume > 2) {
-				return "Grande";
-			}
+			if (volume <= 0) return "Impossível";
+			else if (volume <= 1) return "Pequeno";
+			else if (volume > 2) return "Grande";
 			else return "Médio";
 		}
 
@@ -136,8 +131,7 @@ public class dSoft2 {
 			if (area <= 0) return "Error";
 			double cubeVolume = getCubeVolume(area);
 			String cubeDescription = getCubeDescription(cubeVolume);
-			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " +
-					 cubeVolume + "cm²";
+			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume + "cm²";
 		}
 	}
 
@@ -171,8 +165,7 @@ public class dSoft2 {
 			int hour = time[0];
 			int second = time[time.length - 1];
 			boolean morning = hour == 12 ? second <= 1 : hour > 6 && hour < 12;
-			boolean afternoon =
-					hour == 12 || hour == 20 ? second <= 1 : hour < 20 && hour > 12;
+			boolean afternoon = hour == 12 || hour == 20 ? second <= 1 : hour < 20 && hour > 12;
 
 			if (hour < 0 || second < 0) return "Error";
 			if (morning) return "Bom dia! ☺️";
@@ -229,11 +222,9 @@ public class dSoft2 {
 
 		public static double getFullCost(double buildingSize, double paintCost,
 													double paintEfficiency, double salary) {
-			if (buildingSize < 0 || paintEfficiency < 0 || salary < 0 || paintCost < 0)
-				return -1;
+			if (buildingSize < 0 || paintEfficiency < 0 || salary < 0 || paintCost < 0) return -1;
 			double totalWorkCost = getWorkCosts(buildingSize, salary);
-			double totalPaintingCost = getPaintingCosts(buildingSize, paintCost,
-																	  paintEfficiency);
+			double totalPaintingCost = getPaintingCosts(buildingSize, paintCost, paintEfficiency);
 			return totalPaintingCost + totalWorkCost;
 		}
 	}
@@ -349,8 +340,7 @@ public class dSoft2 {
 			return time * hourlyWage;
 		}
 
-		public static int getTotalTime(int treeQuantity, int bushQuantity,
-												 int areaInSquareMeters) {
+		public static int getTotalTime(int treeQuantity, int bushQuantity, int areaInSquareMeters) {
 			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
 			int treeTime = getTreeTime(treeQuantity);
 			int bushTime = getBushTime(bushQuantity);
@@ -378,6 +368,12 @@ public class dSoft2 {
 
 	// QUESTION 14
 	public static class DistanceCalculator {
+		public static double getAverageTravelledDistanceInKm(int[] distanceInMiles) {
+			if (distanceInMiles.length < 1) return -1;
+			double distance = getAverageTravelledDistanceInMiles(distanceInMiles);
+			return convertMilesToKm(distance);
+		}
+
 		public static double convertMilesToKm(double distanceInMiles) {
 			double distanceInM = distanceInMiles * 1069;
 			double distanceInKm = distanceInM / 1000;
@@ -395,18 +391,22 @@ public class dSoft2 {
 			}
 			return (double) totalDistance / totalDays;
 		}
-
-		public static double getAverageTravelledDistanceInKm(int[] distanceInMiles) {
-			if (distanceInMiles.length < 1) return -1;
-			double rawDistance = getAverageTravelledDistanceInMiles(distanceInMiles);
-			double distanceInKm = convertMilesToKm(rawDistance);
-
-			return distanceInKm;
-		}
 	}
 
 	// QUESTION 15
 	public static class TriangleSides {
+
+		public static TriangleTypes getTriangleType(int[] sides) {
+			if (!isTrianglePossible(sides)) return null;
+			if (isIsosceles(sides)) return TriangleTypes.ISOSCELES;
+			if (isEquilateral(sides)) return TriangleTypes.EQUILATERAL;
+			if (isScalene(sides)) return TriangleTypes.SCALENE;
+			return null;
+		}
+
+		public enum TriangleTypes {
+			ISOSCELES, EQUILATERAL, SCALENE
+		}
 
 		public static boolean hasEnoughSides(int[] sides) {
 			return sides.length == 3;
@@ -423,13 +423,8 @@ public class dSoft2 {
 			return conditionA && conditionB && conditionC;
 		}
 
-		public enum TriangleTypes {
-			ISOSCELES, EQUILATERAL, SCALENE
-		}
-
 		public static boolean isEquilateral(int[] sides) {
-			if (isTrianglePossible(sides))
-				return sides[0] == sides[1] && sides[2] == sides[1];
+			if (isTrianglePossible(sides)) return sides[0] == sides[1] && sides[2] == sides[1];
 			return false;
 		}
 
@@ -453,14 +448,6 @@ public class dSoft2 {
 				return conditionA || conditionB || conditionC;
 			}
 			return false;
-		}
-
-		public static TriangleTypes getTriangleType(int[] sides) {
-			if (!isTrianglePossible(sides)) return null;
-			if (isIsosceles(sides)) return TriangleTypes.ISOSCELES;
-			if (isEquilateral(sides)) return TriangleTypes.EQUILATERAL;
-			if (isScalene(sides)) return TriangleTypes.SCALENE;
-			return null;
 		}
 	}
 
@@ -501,23 +488,22 @@ public class dSoft2 {
 	}
 
 	// QUESTION 17
-
+	// INCOMPLETE
 	public static class TrainSchedule {
-		public static int[] getTrainArrival(int[] trainDeparture, int[] travelDuration) {
+		public static int[] getTrainArrivalTime(int[] trainDeparture, int[] travelDuration) {
 			// duration < 24
-			if (!isValidTime(trainDeparture)) return new int[]{-1};
-			if (!isValidTime(travelDuration)) return new int[]{-1};
-
-			int[] trainArrival = new int[2];
-			trainArrival[0] = (trainDeparture[0] + travelDuration[0]) % 24;
-			trainArrival[1] = (trainDeparture[1] + travelDuration[1]) % 60;
-
-			return trainArrival;
+			if (isValidTime(trainDeparture) && isValidTime(travelDuration)) {
+				int[] trainArrival = new int[2];
+				trainArrival[0] = (trainDeparture[0] + travelDuration[0]) % 24;
+				trainArrival[1] = (trainDeparture[1] + travelDuration[1]) % 60;
+				System.out.println(Arrays.toString(trainArrival));
+				return trainArrival;
+			}
+			return new int[]{-1};
 		}
 
 		public static boolean isValidTime(int[] time) {
-			return time.length == 2 && time[0] >= 0 && time[0] < 24 && time[1] >= 0 &&
-					 time[1] < 60;
+			return time.length == 2 && time[0] >= 0 && time[0] < 24 && time[1] >= 0 && time[1] < 60;
 		}
 
 		public static boolean isSameDayArrival(int[] trainArrival, int[] trainDeparture) {
@@ -532,9 +518,8 @@ public class dSoft2 {
 	// QUESTION 18
 	public static int[] getFinishTime(int[] startTime, int duration) {
 		if (startTime.length != 3) return new int[]{-1};
-		if (startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 ||
-			 startTime[1] >= 59 || startTime[2] < 0 || startTime[2] >= 59)
-			return new int[]{-1};
+		if (startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 || startTime[1] >= 59 ||
+			 startTime[2] < 0 || startTime[2] >= 59) return new int[]{-1};
 		if (duration < 0) return new int[]{-2};
 
 		int[] durationTime = Time.convertTime(duration);
