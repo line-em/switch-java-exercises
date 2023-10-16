@@ -428,12 +428,8 @@ public class dSoft2 {
 		}
 
 		public static boolean isEquilateral(int[] sides) {
-			if (isTrianglePossible(sides)) {
-				for (int side : sides) {
-					if (side != sides[0]) return false;
-				}
-				return true;
-			}
+			if (isTrianglePossible(sides))
+				return sides[0] == sides[1] && sides[2] == sides[1];
 			return false;
 		}
 
@@ -456,7 +452,6 @@ public class dSoft2 {
 
 				return conditionA || conditionB || conditionC;
 			}
-
 			return false;
 		}
 
@@ -510,27 +505,26 @@ public class dSoft2 {
 	public static class TrainSchedule {
 		public static int[] getTrainArrival(int[] trainDeparture, int[] travelDuration) {
 			// duration < 24
-			if (trainDeparture.length != 2 || travelDuration.length != 2)
-				return new int[]{-1};
-			if (travelDuration[0] > 24 || travelDuration[0] < 0 || trainDeparture[0] > 24 ||
-				 trainDeparture[0] < 0) return new int[]{-1};
-			if (travelDuration[1] > 60 || travelDuration[1] < 0 || trainDeparture[1] > 24 ||
-				 trainDeparture[1] < 0) return new int[]{-1};
+			if (!isValidTime(trainDeparture)) return new int[]{-1};
+			if (!isValidTime(travelDuration)) return new int[]{-1};
 
 			int[] trainArrival = new int[2];
-			trainArrival[0] = trainDeparture[0] + travelDuration[0];
-			trainArrival[1] = trainDeparture[1] + travelDuration[2];
+			trainArrival[0] = (trainDeparture[0] + travelDuration[0]) % 24;
+			trainArrival[1] = (trainDeparture[1] + travelDuration[1]) % 60;
 
-			if (isSameDayArrival(trainArrival)) {
-				return null;
-			}
-			else {
-				return null;
-			}
+			return trainArrival;
 		}
 
-		public static boolean isSameDayArrival(int[] trainArrival) {
+		public static boolean isValidTime(int[] time) {
+			return time.length == 2 && time[0] >= 0 && time[0] < 24 && time[1] >= 0 &&
+					 time[1] < 60;
+		}
 
+		public static boolean isSameDayArrival(int[] trainArrival, int[] trainDeparture) {
+			if (trainArrival[0] > trainDeparture[0]) return true;
+			if (trainArrival[0] == trainDeparture[0] && trainArrival[1] > trainDeparture[1])
+				return true; //Train with only minutes of duration.
+			else return false;
 		}
 
 	}
