@@ -406,7 +406,7 @@ public class dSoft2 {
 	}
 
 	// QUESTION 15
-	public static class Triangles {
+	public static class TriangleSides {
 
 		public static boolean hasEnoughSides(int[] sides) {
 			return sides.length == 3;
@@ -467,6 +467,65 @@ public class dSoft2 {
 			if (isScalene(sides)) return TriangleTypes.SCALENE;
 			return null;
 		}
+	}
+
+	// Question 16
+
+	public static class TriangleAngles {
+		public enum TriangleTypes {
+			RECTANGLE, ACUTE, OBTUSE
+		}
+
+		public static boolean isTrianglePossible(int[] angles) {
+			if (angles.length != 3) return false;
+			if (angles[0] < 0 && angles[1] < 0 && angles[2] < 0) return false;
+
+			return angles[0] + angles[1] + angles[2] == 180;
+			;
+		}
+
+		public static boolean isRectangle(int[] angles) {
+			return angles[0] == 90 || angles[1] == 90 || angles[2] == 90;
+		}
+
+		public static boolean isAcute(int[] angles) {
+			return angles[0] < 90 && angles[1] < 90 && angles[2] == 90;
+		}
+
+		public static boolean isObtuse(int[] angles) {
+			return angles[0] > 90 || angles[1] > 90 || angles[2] > 90;
+		}
+
+		public static TriangleTypes verifyTriangleType(int[] angles) {
+			if (!isTrianglePossible(angles)) return null;
+			if (isRectangle(angles)) return TriangleTypes.RECTANGLE;
+			if (isAcute(angles)) return TriangleTypes.ACUTE;
+			if (isObtuse(angles)) return TriangleTypes.OBTUSE;
+			return null;
+		}
+	}
+
+	// QUESTION 17
+
+	public static class TrainSchedule {
+		public static int[] getTrainArrival(int[] trainDeparture, int[] travelDuration) {
+			// duration < 24
+			if (trainDeparture.length != 2 || travelDuration.length != 2)
+				return new int[]{-1};
+			if (travelDuration[0] > 24 || travelDuration[0] < 0 || trainDeparture[0] > 24 ||
+				 trainDeparture[0] < 0) return new int[]{-1};
+			if (travelDuration[1] > 60 || travelDuration[1] < 0 || trainDeparture[1] > 24 ||
+				 trainDeparture[1] < 0) return new int[]{-1};
+
+			int[] trainArrival = new int[2];
+			trainArrival[0] = trainDeparture[0] + travelDuration[0];
+		}
+
+		public static boolean isSameDayArrival(int[] trainsDeparture,
+															int[] travelDuration) {
+
+		}
+
 	}
 
 	// QUESTION 18
