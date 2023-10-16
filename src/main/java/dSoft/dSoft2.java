@@ -470,7 +470,7 @@ public class dSoft2 {
 		}
 
 		public static boolean isAcute(int[] angles) {
-			return angles[0] < 90 && angles[1] < 90 && angles[2] == 90;
+			return angles[0] < 90 && angles[1] < 90 && angles[2] < 90;
 		}
 
 		public static boolean isObtuse(int[] angles) {
@@ -489,33 +489,30 @@ public class dSoft2 {
 	// QUESTION 17
 	// INCOMPLETE
 	public static class TrainSchedule {
-		public static int[] getTrainArrivalTime(int[] trainDeparture, int[] travelDuration) {
-			if (isValidTime(trainDeparture) && isValidTime(travelDuration)) {
-				int[] trainArrival = new int[2];
-
-				int overflowMinutes = ((trainDeparture[1] + travelDuration[1]) / 60);
-				int arrivalHours = (trainDeparture[0] + travelDuration[0] + overflowMinutes) % 24;
-				int arrivalMinutes = (trainDeparture[1] + travelDuration[1]) % 60;
-
-				trainArrival[0] = arrivalHours;
-				trainArrival[1] = arrivalMinutes;
-
-				return trainArrival;
+		public static int[] getTrainArrivalTime(int departureHour, int departureMinute,
+															 int travelHours, int travelMinutes) {
+			if (isValidTime(departureHour, departureMinute) &&
+				 isValidTime(travelHours, travelMinutes)) {
+				int overflowMinutes = (departureMinute + travelMinutes) / 60;
+				int arrivalHours = (departureHour + travelHours + overflowMinutes) % 24;
+				int arrivalMinutes = (departureMinute + travelMinutes) % 60;
+				return new int[]{arrivalHours, arrivalMinutes};
 			}
 			return new int[]{-1};
 		}
 
-		public static boolean isValidTime(int[] time) {
-			return time.length == 2 && time[0] >= 0 && time[0] < 24 && time[1] >= 0 && time[1] < 60;
+		public static boolean isValidTime(int hour, int minute) {
+			return hour >= 0 && hour < 24 && minute >= 0 && minute < 60;
 		}
 
-		public static boolean isSameDayArrival(int[] trainArrival, int[] trainDeparture) {
-			if (trainArrival[0] > trainDeparture[0]) return true;
-			if (trainArrival[0] == trainDeparture[0] && trainArrival[1] > trainDeparture[1])
-				return true; //Train with only minutes of duration.
-			else return false;
-		}
+		public static boolean isSameDayArrival(int arrivalHour, int arrivalMinute, int departureHour,
+															int departureMinute) {
+			if (arrivalHour > departureHour) return true;
+			if (arrivalHour == departureHour && arrivalMinute > departureMinute)
+				return true; // Train with only minutes of duration.
+			return false;
 
+		}
 	}
 
 	// QUESTION 18
