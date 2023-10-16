@@ -463,7 +463,6 @@ public class dSoft2 {
 			if (angles[0] < 0 && angles[1] < 0 && angles[2] < 0) return false;
 
 			return angles[0] + angles[1] + angles[2] == 180;
-			;
 		}
 
 		public static boolean isRectangle(int[] angles) {
@@ -491,12 +490,16 @@ public class dSoft2 {
 	// INCOMPLETE
 	public static class TrainSchedule {
 		public static int[] getTrainArrivalTime(int[] trainDeparture, int[] travelDuration) {
-			// duration < 24
 			if (isValidTime(trainDeparture) && isValidTime(travelDuration)) {
 				int[] trainArrival = new int[2];
-				trainArrival[0] = (trainDeparture[0] + travelDuration[0]) % 24;
-				trainArrival[1] = (trainDeparture[1] + travelDuration[1]) % 60;
-				System.out.println(Arrays.toString(trainArrival));
+
+				int overflowMinutes = ((trainDeparture[1] + travelDuration[1]) / 60);
+				int arrivalHours = (trainDeparture[0] + travelDuration[0] + overflowMinutes) % 24;
+				int arrivalMinutes = (trainDeparture[1] + travelDuration[1]) % 60;
+
+				trainArrival[0] = arrivalHours;
+				trainArrival[1] = arrivalMinutes;
+
 				return trainArrival;
 			}
 			return new int[]{-1};
