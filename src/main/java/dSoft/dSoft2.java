@@ -1,6 +1,8 @@
 package dSoft;
 
 import java.time.DayOfWeek;
+import static dSoft.dSoft2.GardenCostCalculator.DecorType.BUSH;
+import static dSoft.dSoft2.GardenCostCalculator.DecorType.TREE;
 import static java.time.DayOfWeek.*;
 
 public class dSoft2 {
@@ -311,34 +313,35 @@ public class dSoft2 {
 			TREE, BUSH
 		}
 
+		public static double getTotalCost(int areaInSquareMeters, int treeQuantity,
+													 int bushQuantity) {
+			if (bushQuantity < 0 || areaInSquareMeters <= 0 || treeQuantity < 0) return -1;
+
+			double totalBushCost = getDecorCost(BUSH, bushQuantity);
+			double totalTreeCost = getDecorCost(TREE, treeQuantity);
+			double totalGrassCost = getGrassCost(areaInSquareMeters);
+			int totalTime = getTotalTime(treeQuantity, bushQuantity, areaInSquareMeters);
+			double salary = getSalary(totalTime);
+
+			return totalTreeCost + totalGrassCost + totalBushCost + salary;
+		}
+
+		public static int getDecorTime(DecorType type, int quantity) {
+			if (type == TREE) return quantity * treeTimeForEach;
+			else return quantity * bushTimeForEach;
+		}
+
+		public static double getDecorCost(DecorType type, int quantity) {
+			if (type == TREE) return quantity * treeCost;
+			else return quantity * bushCost;
+		}
+
 		public static double getGrassCost(int areaInSquareMeters) {
-			if (areaInSquareMeters <= 0) return -1;
 			return grassCost * areaInSquareMeters;
 		}
 
 		public static int getGrassTime(int areaInSquareMeters) {
-			if (areaInSquareMeters < 0) return -1;
 			return grassTimeInSquareMeters * areaInSquareMeters;
-		}
-
-		public static double getTreeCost(int quantity) {
-			if (quantity < 0) return -1;
-			return treeCost * quantity;
-		}
-
-		public static int getTreeTime(int quantity) {
-			if (quantity < 0) return -1;
-			return treeTimeForEach * quantity;
-		}
-
-		public static double getBushCost(int quantity) {
-			if (quantity < 0) return -1;
-			return bushCost * quantity;
-		}
-
-		public static int getBushTime(int quantity) {
-			if (quantity < 0) return -1;
-			return bushTimeForEach * quantity;
 		}
 
 		public static int getSalary(int totalTimeInSeconds) {
@@ -349,8 +352,8 @@ public class dSoft2 {
 
 		public static int getTotalTime(int treeQuantity, int bushQuantity, int areaInSquareMeters) {
 			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
-			int treeTime = getTreeTime(treeQuantity);
-			int bushTime = getBushTime(bushQuantity);
+			int treeTime = getDecorTime(TREE, treeQuantity);
+			int bushTime = getDecorTime(BUSH, bushQuantity);
 			int grassTime = getGrassTime(areaInSquareMeters);
 			return treeTime + bushTime + grassTime;
 		}
@@ -359,17 +362,6 @@ public class dSoft2 {
 			if (totalTimeInSeconds < 0) return "Error";
 			int[] time = Time.convertTime(totalTimeInSeconds);
 			return Time.formatTime(time);
-		}
-
-		public static double getTotalCost(int areaInSquareMeters, int treeQuantity,
-													 int bushQuantity) {
-			if (bushQuantity < 0 || areaInSquareMeters <= 0 || treeQuantity < 0) return -1;
-			double totalBushCost = getBushCost(bushQuantity);
-			double totalGrassCost = getGrassCost(areaInSquareMeters);
-			double totalTreeCost = getTreeCost(treeQuantity);
-			int totalTime = getTotalTime(treeQuantity, bushQuantity, areaInSquareMeters);
-			double salary = getSalary(totalTime);
-			return totalTreeCost + totalGrassCost + totalBushCost + salary;
 		}
 	}
 
