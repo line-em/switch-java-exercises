@@ -298,8 +298,6 @@ public class dSoft2 {
 	}
 
 	// question 13
-	// TODO: Make less methods, which can accept TREE, GRASS and BUSH (enum)
-	// Todo ct2: For both cost and time. AT least Tree and Bush, as they accept the same parameters.
 	public static class GardenCostCalculator {
 		final static double grassCost = 10;
 		final static int grassTimeInSquareMeters = 300;
@@ -327,20 +325,24 @@ public class dSoft2 {
 		}
 
 		public static int getDecorTime(DecorType type, int quantity) {
+			if (quantity < 0) return -1;
 			if (type == TREE) return quantity * treeTimeForEach;
 			else return quantity * bushTimeForEach;
 		}
 
 		public static double getDecorCost(DecorType type, int quantity) {
+			if (quantity < 0) return -1;
 			if (type == TREE) return quantity * treeCost;
 			else return quantity * bushCost;
 		}
 
 		public static double getGrassCost(int areaInSquareMeters) {
+			if (areaInSquareMeters < 0) return -1;
 			return grassCost * areaInSquareMeters;
 		}
 
 		public static int getGrassTime(int areaInSquareMeters) {
+			if (areaInSquareMeters < 0) return -1;
 			return grassTimeInSquareMeters * areaInSquareMeters;
 		}
 
@@ -540,7 +542,7 @@ public class dSoft2 {
 		final static double secondBonus = 15;
 
 		public static double getBonus(int extraHours) {
-			if (extraHours <= 0) return -1;
+			if (extraHours < 0) return -1;
 			double totalBonus = 0;
 			if (extraHours <= 5) {
 				for (int i = 0; i < extraHours; i++) {
@@ -548,7 +550,8 @@ public class dSoft2 {
 				}
 			}
 			if (extraHours > 5) {
-				for (int i = 0; i < extraHours; i++) {
+				totalBonus = 5 * firstBonus;
+				for (int i = 0; i < (extraHours - 5); i++) {
 					totalBonus += secondBonus;
 				}
 			}
@@ -556,6 +559,7 @@ public class dSoft2 {
 		}
 
 		public static double getWeeklySalary(int extraHours) {
+			if (extraHours < 0) return -1;
 			double bonus = getBonus(extraHours);
 			return (weeklyHours * hourlyWage) + bonus;
 		}

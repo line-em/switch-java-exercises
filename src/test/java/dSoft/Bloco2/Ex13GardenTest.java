@@ -20,7 +20,7 @@ public class Ex13GardenTest {
 	@Test
 	public void grassAreaIsZero() {
 		int areaInSquareMeters = 0;
-		double expected = -1;
+		double expected = 0;
 		double actual = GardenCostCalculator.getGrassCost(areaInSquareMeters);
 
 		assertEquals(expected, actual, 0.1);
