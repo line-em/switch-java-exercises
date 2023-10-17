@@ -3,6 +3,8 @@ package dSoft;
 import dSoft.dSoft2.GardenCostCalculator;
 import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static dSoft.dSoft2.GardenCostCalculator.DecorType.BUSH;
+import static dSoft.dSoft2.GardenCostCalculator.DecorType.TREE;
 
 public class Ex13GardenTest {
 
@@ -64,16 +66,7 @@ public class Ex13GardenTest {
 	public void treeQntdIsNegative() {
 		int quantity = -1;
 		double expected = -1.0;
-		double actual = GardenCostCalculator.getTreeCost(quantity);
-
-		assertEquals(expected, actual, 0.1);
-	}
-
-	@Test
-	public void treeQntdIsZero() {
-		int quantity = 0;
-		double expected = 0;
-		double actual = GardenCostCalculator.getTreeCost(quantity);
+		double actual = GardenCostCalculator.getDecorCost(TREE, quantity);
 
 		assertEquals(expected, actual, 0.1);
 	}
@@ -82,7 +75,7 @@ public class Ex13GardenTest {
 	public void treeCostPositive() {
 		int quantity = 5;
 		double expected = 50;
-		double actual = GardenCostCalculator.getTreeCost(quantity);
+		double actual = GardenCostCalculator.getDecorCost(TREE, quantity);
 
 		assertEquals(expected, actual, 0.1);
 	}
@@ -91,16 +84,8 @@ public class Ex13GardenTest {
 	public void treeQntdIsNegativeTimeCalc() {
 		int quantity = -1;
 		int expected = -1;
-		int actual = GardenCostCalculator.getTreeTime(quantity);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void treeQntdIsZeroTimeCalc() {
-		int quantity = 0;
-		int expected = 0;
-		int actual = GardenCostCalculator.getTreeTime(quantity);
+		int actual = GardenCostCalculator.getDecorTime(TREE, quantity);
+		;
 
 		assertEquals(expected, actual);
 	}
@@ -109,7 +94,8 @@ public class Ex13GardenTest {
 	public void treeQntdPositiveTimeCalc() {
 		int quantity = 5;
 		int expected = 3000;
-		int actual = GardenCostCalculator.getTreeTime(quantity);
+		int actual = GardenCostCalculator.getDecorTime(TREE, quantity);
+		;
 
 		assertEquals(expected, actual);
 	}
@@ -118,7 +104,7 @@ public class Ex13GardenTest {
 	public void bushQntdIsNegative() {
 		int quantity = -1;
 		double expected = -1.0;
-		double actual = GardenCostCalculator.getBushCost(quantity);
+		double actual = GardenCostCalculator.getDecorCost(BUSH, quantity);
 
 		assertEquals(expected, actual, 0.1);
 	}
@@ -127,7 +113,7 @@ public class Ex13GardenTest {
 	public void bushQntdIsZero() {
 		int quantity = 0;
 		double expected = 0;
-		double actual = GardenCostCalculator.getBushCost(quantity);
+		double actual = GardenCostCalculator.getDecorCost(BUSH, quantity);
 
 		assertEquals(expected, actual, 0.1);
 	}
@@ -136,7 +122,7 @@ public class Ex13GardenTest {
 	public void bushCostPositive() {
 		int quantity = 5;
 		double expected = 75;
-		double actual = GardenCostCalculator.getBushCost(quantity);
+		double actual = GardenCostCalculator.getDecorCost(BUSH, quantity);
 
 		assertEquals(expected, actual, 0.1);
 	}
@@ -145,16 +131,7 @@ public class Ex13GardenTest {
 	public void bushQntdIsNegativeTimeCalc() {
 		int quantity = -1;
 		int expected = -1;
-		int actual = GardenCostCalculator.getBushTime(quantity);
-
-		assertEquals(expected, actual);
-	}
-
-	@Test
-	public void bushQntdIsZeroTimeCalc() {
-		int quantity = 0;
-		int expected = 0;
-		int actual = GardenCostCalculator.getBushTime(quantity);
+		double actual = GardenCostCalculator.getDecorTime(BUSH, quantity);
 
 		assertEquals(expected, actual);
 	}
@@ -163,7 +140,7 @@ public class Ex13GardenTest {
 	public void bushQntdPositiveTimeCalc() {
 		int quantity = 5;
 		int expected = 2000;
-		int actual = GardenCostCalculator.getBushTime(quantity);
+		double actual = GardenCostCalculator.getDecorTime(BUSH, quantity);
 
 		assertEquals(expected, actual);
 	}

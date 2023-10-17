@@ -591,7 +591,7 @@ public class dSoft2 {
 		}
 
 		public static boolean isWeekday(DayOfWeek day) {
-			return day != SATURDAY && day != SUNDAY && day != FRIDAY;
+			return day != SATURDAY && day != SUNDAY;
 		}
 	}
 }
