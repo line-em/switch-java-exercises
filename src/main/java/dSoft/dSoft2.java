@@ -1,6 +1,7 @@
 package dSoft;
 
-import java.util.Arrays;
+import java.time.DayOfWeek;
+import static java.time.DayOfWeek.*;
 
 public class dSoft2 {
 	/////////////// QUESTION 01 + 11
@@ -222,6 +223,7 @@ public class dSoft2 {
 		public static double getFullCost(double buildingSize, double paintCost,
 													double paintEfficiency, double salary) {
 			if (buildingSize < 0 || paintEfficiency < 0 || salary < 0 || paintCost < 0) return -1;
+
 			double totalWorkCost = getWorkCosts(buildingSize, salary);
 			double totalPaintingCost = getPaintingCosts(buildingSize, paintCost, paintEfficiency);
 			return totalPaintingCost + totalWorkCost;
@@ -294,6 +296,8 @@ public class dSoft2 {
 	}
 
 	// question 13
+	// TODO: Make less methods, which can accept TREE, GRASS and BUSH (enum)
+	// Todo ct2: For both cost and time. AT least Tree and Bush, as they accept the same parameters.
 	public static class GardenCostCalculator {
 		final static double grassCost = 10;
 		final static int grassTimeInSquareMeters = 300;
@@ -302,6 +306,10 @@ public class dSoft2 {
 		final static double bushCost = 15;
 		final static int bushTimeForEach = 400;
 		final static int hourlyWage = 10;
+
+		public enum DecorType {
+			TREE, BUSH
+		}
 
 		public static double getGrassCost(int areaInSquareMeters) {
 			if (areaInSquareMeters <= 0) return -1;
@@ -487,7 +495,6 @@ public class dSoft2 {
 	}
 
 	// QUESTION 17
-	// INCOMPLETE
 	public static class TrainSchedule {
 		public static int[] getTrainArrivalTime(int departureHour, int departureMinute,
 															 int travelHours, int travelMinutes) {
@@ -511,24 +518,88 @@ public class dSoft2 {
 			if (arrivalHour == departureHour && arrivalMinute > departureMinute)
 				return true; // Train with only minutes of duration.
 			return false;
-
 		}
 	}
 
 	// QUESTION 18
-	// INCOMPLETE
 	public static int[] getFinishTime(int[] startTime, int duration) {
 		if (startTime.length != 3) return new int[]{-1};
-		if (startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 || startTime[1] >= 59 ||
-			 startTime[2] < 0 || startTime[2] >= 59) return new int[]{-1};
-		if (duration < 0) return new int[]{-2};
+		if (isValidTime(startTime) || duration < 0) return new int[]{-1};
 
 		int[] durationTime = Time.convertTime(duration);
-		int[] finishTime = new int[3];
+		int[] finishTime = new int[3]; // HH:MM:SS
 		finishTime[0] = durationTime[0] + startTime[0];
 		finishTime[1] = durationTime[1] + startTime[1];
 		finishTime[2] = durationTime[2] + startTime[2];
 
 		return finishTime;
+	}
+
+	public static boolean isValidTime(int[] startTime) {
+		return startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 || startTime[1] >= 59 ||
+				 startTime[2] < 0 || startTime[2] >= 59;
+	}
+
+	// QUESTION 19
+	public static class weeklySalary {
+		final static byte weeklyHours = 36;
+		final static double hourlyWage = 7.5;
+		final static double firstBonus = 10;
+		final static double secondBonus = 15;
+
+		public static double getBonus(int extraHours) {
+			if (extraHours <= 0) return -1;
+			double totalBonus = 0;
+			if (extraHours <= 5) {
+				for (int i = 0; i < extraHours; i++) {
+					totalBonus += firstBonus;
+				}
+			}
+			if (extraHours > 5) {
+				for (int i = 0; i < extraHours; i++) {
+					totalBonus += secondBonus;
+				}
+			}
+			return totalBonus;
+		}
+
+		public static double getWeeklySalary(int extraHours) {
+			double bonus = getBonus(extraHours);
+			return (weeklyHours * hourlyWage) + bonus;
+		}
+	}
+
+	// QUESTION 20
+	public static class RentalServices {
+		public enum Kits {
+			A, B, C
+		}
+
+		public static double getRentalPrice(Kits kit, DayOfWeek day, boolean isHoliday) {
+			boolean weekday = isWeekday(day);
+
+			return switch (kit) {
+				case A -> isHoliday ? 40 : weekday ? 30 : 40;
+				case B -> isHoliday ? 70 : weekday ? 50 : 70;
+				case C -> isHoliday ? 140 : weekday ? 100 : 140;
+			};
+		}
+
+		public static double getRentalPriceWithDelivery(int distance, Kits kit, DayOfWeek day,
+																		boolean isHoliday) {
+			double deliveryPrice = getDeliveryPrice(distance);
+			if (deliveryPrice < 0) return -1;
+			else return getRentalPrice(kit, day, isHoliday) + deliveryPrice;
+		}
+
+		public static double getDeliveryPrice(int distance) {
+			if (distance <= 0) return -1;
+			double pricePerKm = 2;
+			return distance * pricePerKm;
+		}
+
+		public static boolean isWeekday(DayOfWeek day) {
+			return day != SATURDAY && day != SUNDAY && day != FRIDAY;
+		}
 	}
 }

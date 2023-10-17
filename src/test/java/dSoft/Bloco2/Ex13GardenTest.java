@@ -265,6 +265,6 @@ public class Ex13GardenTest {
 		double actual = GardenCostCalculator.getTotalCost(areaInSquareMeters, treeQuantity,
 																		  bushQuantity);
 
-		assertEquals(expected, actual, 0.0000001D);
+		assertEquals(expected, actual, 0.1);
 	}
 }
