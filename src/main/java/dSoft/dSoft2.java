@@ -57,13 +57,14 @@ public class dSoft2 {
 
 		public static String getClassAssessment(double percentApproved, double upperLimit,
 															 double lowerLimit) {
-			if (lowerLimit > upperLimit || lowerLimit == upperLimit || lowerLimit < 0) return "Error";
+			if (lowerLimit > upperLimit || lowerLimit == upperLimit || lowerLimit < 0) return
+					"Error";
 			if (percentApproved > upperLimit || percentApproved < lowerLimit) return "Error";
-			else if (percentApproved < 0.2 + lowerLimit) return "Turma má";
-			else if (percentApproved < 0.5 + lowerLimit) return "Turma fraca";
-			else if (percentApproved < 0.7 + lowerLimit) return "Turma razoável";
-			else if (percentApproved < 0.9 + lowerLimit) return "Turma boa";
-			else return "Turma Excelente";
+			if (percentApproved < 0.2 + lowerLimit) return "Turma má";
+			if (percentApproved < 0.5 + lowerLimit) return "Turma fraca";
+			if (percentApproved < 0.7 + lowerLimit) return "Turma razoável";
+			if (percentApproved < 0.9 + lowerLimit) return "Turma boa";
+			return "Turma Excelente";
 		}
 
 	}
@@ -124,16 +125,17 @@ public class dSoft2 {
 
 		public static String getCubeDescription(double volume) {
 			if (volume <= 0) return "Impossível";
-			else if (volume <= 1) return "Pequeno";
-			else if (volume > 2) return "Grande";
-			else return "Médio";
+			if (volume <= 1) return "Pequeno";
+			if (volume > 2) return "Grande";
+			return "Médio";
 		}
 
 		public static String describeCube(double area) {
 			if (area <= 0) return "Error";
 			double cubeVolume = getCubeVolume(area);
 			String cubeDescription = getCubeDescription(cubeVolume);
-			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume + "cm²";
+			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume +
+					 "cm²";
 		}
 	}
 
@@ -171,8 +173,8 @@ public class dSoft2 {
 
 			if (hour < 0 || second < 0) return "Error";
 			if (morning) return "Bom dia! ☺️";
-			else if (afternoon) return "Boa tarde! 😁";
-			else return "Boa noite! 😴";
+			if (afternoon) return "Boa tarde! 😁";
+			return "Boa noite! 😴";
 		}
 
 		public static String getWelcomeMessageByTotalSeconds(int seconds) {
@@ -217,8 +219,8 @@ public class dSoft2 {
 		public static int getPainters(double buildingSize) {
 			if (buildingSize < 0) return -1;
 			if (buildingSize < 100) return 1;
-			else if (buildingSize > 100 && buildingSize < 300) return 2;
-			else if (buildingSize > 300 && buildingSize < 1000) return 3;
+			if (buildingSize > 100 && buildingSize < 300) return 2;
+			if (buildingSize > 300 && buildingSize < 1000) return 3;
 			return 4;
 		}
 
@@ -239,8 +241,8 @@ public class dSoft2 {
 
 	public static String getMultipleMessage(int num1, int num2) {
 		if (isMultiple(num1, num2)) return num1 + " é múltiplo de " + num2;
-		else if (isMultiple(num2, num1)) return num2 + " é múltiplo de " + num1;
-		else return num1 + " não é múltiplo de " + num2;
+		if (isMultiple(num2, num1)) return num2 + " é múltiplo de " + num1;
+		return num1 + " não é múltiplo de " + num2;
 	}
 
 	// QUESTION 9
@@ -352,7 +354,8 @@ public class dSoft2 {
 			return time * hourlyWage;
 		}
 
-		public static int getTotalTime(int treeQuantity, int bushQuantity, int areaInSquareMeters) {
+		public static int getTotalTime(int treeQuantity, int bushQuantity,
+												 int areaInSquareMeters) {
 			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
 			int treeTime = getDecorTime(TREE, treeQuantity);
 			int bushTime = getDecorTime(BUSH, bushQuantity);
@@ -506,7 +509,8 @@ public class dSoft2 {
 			return hour >= 0 && hour < 24 && minute >= 0 && minute < 60;
 		}
 
-		public static boolean isSameDayArrival(int arrivalHour, int arrivalMinute, int departureHour,
+		public static boolean isSameDayArrival(int arrivalHour, int arrivalMinute,
+															int departureHour,
 															int departureMinute) {
 			if (arrivalHour > departureHour) return true;
 			if (arrivalHour == departureHour && arrivalMinute > departureMinute)
