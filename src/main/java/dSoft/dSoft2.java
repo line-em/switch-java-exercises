@@ -22,8 +22,7 @@ public class dSoft2 {
 
 			double finalGrade = totalGrades / totalWeight;
 
-			if (finalGrade <= 20) return finalGrade;
-			else return -1;
+			return finalGrade;
 		}
 
 		public static boolean isApproved(double studentAverage) {
@@ -57,8 +56,7 @@ public class dSoft2 {
 
 		public static String getClassAssessment(double percentApproved, double upperLimit,
 															 double lowerLimit) {
-			if (lowerLimit > upperLimit || lowerLimit == upperLimit || lowerLimit < 0) return
-					"Error";
+			if (lowerLimit > upperLimit || lowerLimit == upperLimit || lowerLimit < 0) return "Error";
 			if (percentApproved > upperLimit || percentApproved < lowerLimit) return "Error";
 			if (percentApproved < 0.2 + lowerLimit) return "Turma má";
 			if (percentApproved < 0.5 + lowerLimit) return "Turma fraca";
@@ -134,8 +132,7 @@ public class dSoft2 {
 			if (area <= 0) return "Error";
 			double cubeVolume = getCubeVolume(area);
 			String cubeDescription = getCubeDescription(cubeVolume);
-			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume +
-					 "cm²";
+			return "O cubo de " + area + "cm é " + cubeDescription + ", e tem " + cubeVolume + "cm²";
 		}
 	}
 
@@ -354,8 +351,7 @@ public class dSoft2 {
 			return time * hourlyWage;
 		}
 
-		public static int getTotalTime(int treeQuantity, int bushQuantity,
-												 int areaInSquareMeters) {
+		public static int getTotalTime(int treeQuantity, int bushQuantity, int areaInSquareMeters) {
 			if (bushQuantity < 0 || areaInSquareMeters < 0 || treeQuantity < 0) return -1;
 			int treeTime = getDecorTime(TREE, treeQuantity);
 			int bushTime = getDecorTime(BUSH, bushQuantity);
@@ -509,8 +505,7 @@ public class dSoft2 {
 			return hour >= 0 && hour < 24 && minute >= 0 && minute < 60;
 		}
 
-		public static boolean isSameDayArrival(int arrivalHour, int arrivalMinute,
-															int departureHour,
+		public static boolean isSameDayArrival(int arrivalHour, int arrivalMinute, int departureHour,
 															int departureMinute) {
 			if (arrivalHour > departureHour) return true;
 			if (arrivalHour == departureHour && arrivalMinute > departureMinute)
@@ -521,21 +516,26 @@ public class dSoft2 {
 
 	// QUESTION 18
 	public static int[] getFinishTime(int[] startTime, int duration) {
-		if (startTime.length != 3) return new int[]{-1};
-		if (isValidTime(startTime) || duration < 0) return new int[]{-1};
+		if (startTime.length != 3 || !isValidTime(startTime) || duration < 0) {
+			return new int[]{-1};
+		}
 
-		int[] durationTime = Time.convertTime(duration);
-		int[] finishTime = new int[3]; // HH:MM:SS
-		finishTime[0] = durationTime[0] + startTime[0];
-		finishTime[1] = durationTime[1] + startTime[1];
-		finishTime[2] = durationTime[2] + startTime[2];
+		int startHour = startTime[0];
+		int startMinute = startTime[1];
+		int startSecond = startTime[2];
 
-		return finishTime;
+		int totalSeconds = (startHour * 3600) + (startMinute * 60) + startSecond + duration;
+
+		int finishHour = (totalSeconds / 3600) % 24;
+		int finishMinute = (totalSeconds % 3600) / 60;
+		int finishSecond = totalSeconds % 60;
+
+		return new int[]{finishHour, finishMinute, finishSecond};
 	}
 
 	public static boolean isValidTime(int[] startTime) {
-		return startTime[0] < 0 || startTime[0] >= 24 || startTime[1] < 0 || startTime[1] >= 59 ||
-				 startTime[2] < 0 || startTime[2] >= 59;
+		return startTime[0] >= 0 && startTime[0] < 24 && startTime[1] >= 0 && startTime[1] < 60 &&
+				 startTime[2] >= 0 && startTime[2] < 60;
 	}
 
 	// QUESTION 19
@@ -563,8 +563,8 @@ public class dSoft2 {
 		}
 
 		public static double getWeeklySalary(int extraHours) {
-			if (extraHours < 0) return -1;
 			double bonus = getBonus(extraHours);
+			if (extraHours < 0 || bonus < 0) return bonus;
 			return (weeklyHours * hourlyWage) + bonus;
 		}
 	}
@@ -576,19 +576,20 @@ public class dSoft2 {
 		}
 
 		public static double getRentalPrice(Kits kit, DayOfWeek day, boolean isHoliday) {
-			boolean weekday = isWeekday(day);
+			boolean isWeekendOrHoliday = !isWeekday(day) || isHoliday;
 
 			return switch (kit) {
-				case A -> isHoliday ? 40 : weekday ? 30 : 40;
-				case B -> isHoliday ? 70 : weekday ? 50 : 70;
-				case C -> isHoliday ? 140 : weekday ? 100 : 140;
+				case A -> isWeekendOrHoliday ? 40 : 30;
+				case B -> isWeekendOrHoliday ? 70 : 50;
+				case C -> isWeekendOrHoliday ? 140 : 100;
 			};
 		}
 
 		public static double getRentalPriceWithDelivery(int distance, Kits kit, DayOfWeek day,
 																		boolean isHoliday) {
 			double deliveryPrice = getDeliveryPrice(distance);
-			if (deliveryPrice < 0) return -1;
+			if (deliveryPrice < 0) return deliveryPrice;
+
 			else return getRentalPrice(kit, day, isHoliday) + deliveryPrice;
 		}
 

@@ -27,17 +27,6 @@ public class Ex1GradesTest {
 		assertEquals(expected, result, 0.1);
 	}
 
-	@Test //Fronteira Maxima
-	public void averageIsTooHigh() {
-		int[] studentGrades = {20, 50, 30};
-		int[] testWeights = {1, 1, 1};
-
-		double expected = -1;
-		double result = GradeCalculator.getAverage(studentGrades, testWeights);
-
-		assertEquals(expected, result, 0.1);
-	}
-
 	@Test //Fronteira Minima
 	public void noTestsGiven() {
 		int[] studentGrades = {0, 0, 0};
