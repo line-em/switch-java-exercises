@@ -5,6 +5,22 @@ import static dSoft.dSoft3.Ex3.EvenOdd.EVEN;
 import static dSoft.dSoft3.Ex3.EvenOdd.ODD;
 
 public class dSoft3 {
+
+	public static class Ex01 {
+		public static int calculateAlgorithm(int num) {
+			int result = 1;
+			for (int i = num; i >= 1; i--) {
+				result = result * i;
+			}
+			return result;
+		}
+		// d) O resultado é finito. O loop circula até que o valor de X chegue ao valor de 1, e a
+		// cada
+		//	loop, o valor de X é reduzido em 1. Dessa forma, existe uma condição de fim bem
+		//	definida, o
+		//	 que impede essa função de gerar um loop infinito.
+	}
+
 	public static class Ex2 {
 		public static int[] getMultiplesFromInterval(int min, int max, int multiple) {
 			if (min < 0 || max < 0 || multiple <= 0) return new int[]{-1};
@@ -72,5 +88,58 @@ public class dSoft3 {
 			return 0;
 		}
 
+	}
+
+	public static class Ex13 {
+		// A)
+		public static int verificarAlimentacaoAdequada(double peso, double comidaDiariaGramas) {
+			int quantidadeIdeal = calculoQuantidadeIdeal(peso);
+			boolean alimentacaoAdequada = comidaDiariaGramas == quantidadeIdeal;
+			boolean alimentacaoInsuficiente = comidaDiariaGramas < quantidadeIdeal;
+
+			if (alimentacaoAdequada) return 0;
+			if (alimentacaoInsuficiente) return -1;
+			else return 1;
+		}
+
+		public static int calculoQuantidadeIdeal(double peso) {
+			if (peso <= 10) return 100;
+			if (peso > 10 && peso <= 25) return 250;
+			if (peso > 25 && peso <= 45) return 300;
+			else return 500;
+		}
+
+		// B)
+		public static int[] verificarAlimentacaoAdequadaDosAnimais(int[]... animais) {
+			int[] alimentacaoDosAnimais = new int[animais.length];
+			int posicaoAtual = 0;
+			for (int[] animal : animais) {
+				if (animal.length != 2) return new int[]{-1}; // Array de tamanho inválido.
+
+				int peso = animal[0];
+				int comida = animal[1];
+				if (peso <= 0) return new int[]{-2}; // Peso inválido
+				
+				alimentacaoDosAnimais[posicaoAtual] = verificarAlimentacaoAdequada(peso, comida);
+				posicaoAtual++;
+			}
+			return alimentacaoDosAnimais;
+		}
+	}
+
+	public class Ex06 {
+		final static int bonusPercentage = 2;
+
+		public static double getHourlyBonus(double baseSalary, int extraHours) {
+			double hourlyBonus = baseSalary * bonusPercentage;
+			double totalBonus = extraHours * hourlyBonus;
+			return totalBonus;
+		}
+
+		public static double getMonthlyWage(double baseSalary, int extraHours) {
+			double bonus = getHourlyBonus(baseSalary, extraHours);
+			double monthlyWage = baseSalary * bonus;
+			return monthlyWage;
+		}
 	}
 }
