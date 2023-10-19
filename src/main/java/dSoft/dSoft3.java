@@ -119,7 +119,7 @@ public class dSoft3 {
 				int peso = animal[0];
 				int comida = animal[1];
 				if (peso <= 0) return new int[]{-2}; // Peso inválido
-				
+
 				alimentacaoDosAnimais[posicaoAtual] = verificarAlimentacaoAdequada(peso, comida);
 				posicaoAtual++;
 			}
@@ -127,18 +127,23 @@ public class dSoft3 {
 		}
 	}
 
-	public class Ex06 {
-		final static int bonusPercentage = 2;
+	public static class Ex06 {
+		final static double bonusPercentage = 2;
 
 		public static double getHourlyBonus(double baseSalary, int extraHours) {
-			double hourlyBonus = baseSalary * bonusPercentage;
+			double hourlyBonus = (baseSalary * bonusPercentage) / 100;
 			double totalBonus = extraHours * hourlyBonus;
+			if (totalBonus < 0) return -2;
 			return totalBonus;
 		}
 
 		public static double getMonthlyWage(double baseSalary, int extraHours) {
+			if (baseSalary <= 0) return -1;
+
 			double bonus = getHourlyBonus(baseSalary, extraHours);
-			double monthlyWage = baseSalary * bonus;
+			if (bonus < 0) return bonus;
+
+			double monthlyWage = baseSalary + bonus;
 			return monthlyWage;
 		}
 	}
