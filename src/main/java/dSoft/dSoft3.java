@@ -3,6 +3,7 @@ package dSoft;
 import java.util.Arrays;
 import static dSoft.dSoft3.Ex3.EvenOdd.EVEN;
 import static dSoft.dSoft3.Ex3.EvenOdd.ODD;
+import static dSoft.dSoft3.Ex09.TipoProduto.*;
 
 public class dSoft3 {
 
@@ -143,6 +144,24 @@ public class dSoft3 {
 
 			double monthlyWage = baseSalary + bonus;
 			return monthlyWage;
+		}
+	}
+
+	public static class Ex09 {
+		public enum TipoProduto {
+			ALIMENTO_NAO_PERECIVEL, ALIMENTO_PERECIVEL, VESTUARIO, HIGIENE_PESSOAL,
+			LIMPEZA_E_UTENSILIOS_DOMESTICOS, CODIGO_INVALIDO
+		}
+
+		public static TipoProduto analiseCodigoProduto(int codigo) {
+			return switch (codigo) {
+				case 1 -> ALIMENTO_NAO_PERECIVEL;
+				case 2, 3, 4 -> ALIMENTO_PERECIVEL;
+				case 5, 6 -> VESTUARIO;
+				case 7 -> HIGIENE_PESSOAL;
+				case 8, 9, 10, 11, 12, 13, 14, 15 -> LIMPEZA_E_UTENSILIOS_DOMESTICOS;
+				default -> CODIGO_INVALIDO;
+			};
 		}
 	}
 
