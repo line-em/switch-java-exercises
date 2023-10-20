@@ -15,10 +15,8 @@ public class dSoft3 {
 			return result;
 		}
 		// d) O resultado é finito. O loop circula até que o valor de X chegue ao valor de 1, e a
-		// cada
-		//	loop, o valor de X é reduzido em 1. Dessa forma, existe uma condição de fim bem
-		//	definida, o
-		//	 que impede essa função de gerar um loop infinito.
+		// cada loop, o valor de X é reduzido em 1. Dessa forma, existe uma condição de fim bem
+		//	definida, o que impede essa função de gerar um loop infinito.
 	}
 
 	public static class Ex2 {
