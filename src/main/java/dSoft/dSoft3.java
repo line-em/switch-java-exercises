@@ -89,43 +89,6 @@ public class dSoft3 {
 
 	}
 
-	public static class Ex13 {
-		// A)
-		public static int verificarAlimentacaoAdequada(double peso, double comidaDiariaGramas) {
-			int quantidadeIdeal = calculoQuantidadeIdeal(peso);
-			boolean alimentacaoAdequada = comidaDiariaGramas == quantidadeIdeal;
-			boolean alimentacaoInsuficiente = comidaDiariaGramas < quantidadeIdeal;
-
-			if (alimentacaoAdequada) return 0;
-			if (alimentacaoInsuficiente) return -1;
-			else return 1;
-		}
-
-		public static int calculoQuantidadeIdeal(double peso) {
-			if (peso <= 10) return 100;
-			if (peso > 10 && peso <= 25) return 250;
-			if (peso > 25 && peso <= 45) return 300;
-			else return 500;
-		}
-
-		// B)
-		public static int[] verificarAlimentacaoAdequadaDosAnimais(int[]... animais) {
-			int[] alimentacaoDosAnimais = new int[animais.length];
-			int posicaoAtual = 0;
-			for (int[] animal : animais) {
-				if (animal.length != 2) return new int[]{-1}; // Array de tamanho inválido.
-
-				int peso = animal[0];
-				int comida = animal[1];
-				if (peso <= 0) return new int[]{-2}; // Peso inválido
-
-				alimentacaoDosAnimais[posicaoAtual] = verificarAlimentacaoAdequada(peso, comida);
-				posicaoAtual++;
-			}
-			return alimentacaoDosAnimais;
-		}
-	}
-
 	public static class Ex06 {
 		final static double bonusPercentage = 2;
 
@@ -144,6 +107,20 @@ public class dSoft3 {
 
 			double monthlyWage = baseSalary + bonus;
 			return monthlyWage;
+		}
+	}
+
+	public static class Ex07 {
+		public static int getPositionProductIsHigherThanNum(int[] numArray, int num) {
+			int total = 1;
+
+			for (int i = 0; i < numArray.length; i++) {
+				if (numArray[i] < 0) return -1;
+				total *= numArray[i];
+				if (total > num) return i;
+			}
+
+			return -2;
 		}
 	}
 
@@ -194,6 +171,43 @@ public class dSoft3 {
 			double taxPercentage = getSalaryTaxes(salary);
 			if (taxPercentage <= 0) return taxPercentage;
 			return salary - (salary * taxPercentage);
+		}
+	}
+
+	public static class Ex13 {
+		// A)
+		public static int verificarAlimentacaoAdequada(double peso, double comidaDiariaGramas) {
+			int quantidadeIdeal = calculoQuantidadeIdeal(peso);
+			boolean alimentacaoAdequada = comidaDiariaGramas == quantidadeIdeal;
+			boolean alimentacaoInsuficiente = comidaDiariaGramas < quantidadeIdeal;
+
+			if (alimentacaoAdequada) return 0;
+			if (alimentacaoInsuficiente) return -1;
+			else return 1;
+		}
+
+		public static int calculoQuantidadeIdeal(double peso) {
+			if (peso <= 10) return 100;
+			if (peso > 10 && peso <= 25) return 250;
+			if (peso > 25 && peso <= 45) return 300;
+			else return 500;
+		}
+
+		// B)
+		public static int[] verificarAlimentacaoAdequadaDosAnimais(int[]... animais) {
+			int[] alimentacaoDosAnimais = new int[animais.length];
+			int posicaoAtual = 0;
+			for (int[] animal : animais) {
+				if (animal.length != 2) return new int[]{-1}; // Array de tamanho inválido.
+
+				int peso = animal[0];
+				int comida = animal[1];
+				if (peso <= 0) return new int[]{-2}; // Peso inválido
+
+				alimentacaoDosAnimais[posicaoAtual] = verificarAlimentacaoAdequada(peso, comida);
+				posicaoAtual++;
+			}
+			return alimentacaoDosAnimais;
 		}
 	}
 }

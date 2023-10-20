@@ -1,6 +1,5 @@
 package dSoft.Bloco3;
 
-import dSoft.dSoft3;
 import org.junit.jupiter.api.Test;
 import static dSoft.dSoft3.Ex10.Moedas.*;
 import static dSoft.dSoft3.Ex10.obterCambio;
