@@ -124,6 +124,19 @@ public class dSoft3 {
 		}
 	}
 
+	public static class Ex08 {
+		public static int getPossibleSums(int num) {
+			if (num <= 0 || num > 20) return -1;
+			int possibleSums = 0;
+
+			// num / 2 to avoid duplicates.
+			for (int i = 0; i <= num / 2; i++) {
+				if (i + (num - i) == num) possibleSums++;
+			}
+			return possibleSums;
+		}
+	}
+
 	public static class Ex09 {
 		public enum TipoProduto {
 			ALIMENTO_NAO_PERECIVEL, ALIMENTO_PERECIVEL, VESTUARIO, HIGIENE_PESSOAL,
