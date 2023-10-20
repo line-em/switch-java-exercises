@@ -165,6 +165,22 @@ public class dSoft3 {
 		}
 	}
 
+	public static class Ex10 {
+		public enum Moedas {
+			DOLAR, D, LIBRA, L, IENE, I, COROA_SUECA, C, FRANCO_SUICO, F
+		}
+
+		public static double obterCambio(Moedas moeda) {
+			return switch (moeda) {
+				case DOLAR, D -> 1.534;
+				case LIBRA, L -> 0.774;
+				case IENE, I -> 161.480;
+				case COROA_SUECA, C -> 9.593;
+				case FRANCO_SUICO, F -> 1.601;
+			};
+		}
+	}
+
 	public static class Ex12salaryTaxes {
 		public static double getSalaryTaxes(double salary) {
 			if (salary <= 0) return -1;
