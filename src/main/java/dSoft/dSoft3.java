@@ -145,4 +145,20 @@ public class dSoft3 {
 			return monthlyWage;
 		}
 	}
+
+	public static class Ex12salaryTaxes {
+		public static double getSalaryTaxes(double salary) {
+			if (salary <= 0) return -1;
+			if (salary < 500) return 0.10;
+			if (salary >= 500 && salary < 1000) return 0.15;
+			else return 0.20;
+		}
+
+		public static double getNetSalary(double salary) {
+			if (salary <= 0) return -1;
+			double taxPercentage = getSalaryTaxes(salary);
+			if (taxPercentage <= 0) return taxPercentage;
+			return salary - (salary * taxPercentage);
+		}
+	}
 }
