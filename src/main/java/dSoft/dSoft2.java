@@ -397,16 +397,16 @@ public class dSoft2 {
 	// QUESTION 15
 	public static class TriangleSides {
 
+		public enum TriangleTypes {
+			ISOSCELES, EQUILATERAL, SCALENE
+		}
+
 		public static TriangleTypes getTriangleType(int[] sides) {
 			if (!isTrianglePossible(sides)) return null;
 			if (isEquilateral(sides)) return TriangleTypes.EQUILATERAL;
 			if (isIsosceles(sides)) return TriangleTypes.ISOSCELES;
 			if (isScalene(sides)) return TriangleTypes.SCALENE;
 			return null;
-		}
-
-		public enum TriangleTypes {
-			ISOSCELES, EQUILATERAL, SCALENE
 		}
 
 		public static boolean hasEnoughSides(int[] sides) {
@@ -480,6 +480,7 @@ public class dSoft2 {
 
 		public static TriangleTypes verifyTriangleType(int[] angles) {
 			if (!isTrianglePossible(angles)) return null;
+
 			if (isRectangle(angles)) return TriangleTypes.RECTANGLE;
 			if (isAcute(angles)) return TriangleTypes.ACUTE;
 			if (isObtuse(angles)) return TriangleTypes.OBTUSE;
@@ -575,6 +576,10 @@ public class dSoft2 {
 			A, B, C
 		}
 
+		public static boolean isWeekday(DayOfWeek day) {
+			return day != SATURDAY && day != SUNDAY;
+		}
+
 		public static double getRentalPrice(Kits kit, DayOfWeek day, boolean isHoliday) {
 			boolean isWeekendOrHoliday = !isWeekday(day) || isHoliday;
 
@@ -599,8 +604,5 @@ public class dSoft2 {
 			return distance * pricePerKm;
 		}
 
-		public static boolean isWeekday(DayOfWeek day) {
-			return day != SATURDAY && day != SUNDAY;
-		}
 	}
 }

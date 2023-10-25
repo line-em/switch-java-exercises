@@ -1,8 +1,6 @@
 package dSoft;
 
 import java.util.Arrays;
-import static dSoft.dSoft3.Ex3.EvenOdd.EVEN;
-import static dSoft.dSoft3.Ex3.EvenOdd.ODD;
 import static dSoft.dSoft3.Ex09.TipoProduto.*;
 
 public class dSoft3 {
@@ -21,20 +19,22 @@ public class dSoft3 {
 	}
 
 	public static class Ex2 {
-		public static int[] getMultiplesFromInterval(int min, int max, int multiple) {
+		public static int[] getMultiplesInRange(int min, int max, int multiple) {
 			if (min < 0 || max < 0 || multiple <= 0) return new int[]{-1};
 			if (min >= max) return new int[]{-2};
 
-			int currentPosition = 0;
-			int[] multiples = new int[(max - min) / multiple];
+			int[] multiples = new int[(max - min) / multiple + 1];
 
-			for (int i = min; i < max; i++) {
+			int currentIndex = 0;
+			for (int i = min; i <= max; i++) {
 				if (i % multiple == 0) {
-					multiples[currentPosition] = i;
-					currentPosition++;
+					multiples[currentIndex] = i;
+					currentIndex++;
 				}
 			}
-			return multiples;
+
+			int[] validMultiples = Arrays.copyOf(multiples, currentIndex);
+			return validMultiples;
 		}
 
 		public static int[] concatenateTwoArrays(int[] array1, int[] array2) {
@@ -48,13 +48,13 @@ public class dSoft3 {
 			return concatArray;
 		}
 
-		public static int[] getMultiplesOfTwoNumbersFromInterval(int min, int max, int multiple1,
-																					int multiple2) {
+		public static int[] getMultiplesOfTwoNumbersInRange(int min, int max, int multiple1,
+																			 int multiple2) {
 			if (min < 0 || max < 0 || multiple1 <= 0 || multiple2 <= 0) return new int[]{-1};
 			if (min >= max) return new int[]{-2};
 
-			int[] multiples1 = getMultiplesFromInterval(min, max, multiple1);
-			int[] multiples2 = getMultiplesFromInterval(min, max, multiple2);
+			int[] multiples1 = getMultiplesInRange(min, max, multiple1);
+			int[] multiples2 = getMultiplesInRange(min, max, multiple2);
 
 			int[] allMultiples = concatenateTwoArrays(multiples1, multiples2);
 			return allMultiples;
@@ -71,29 +71,11 @@ public class dSoft3 {
 		}
 	}
 
-	public static class Ex3 {
-		public enum EvenOdd {
-			EVEN, ODD
-		}
-
-		public static EvenOdd verifyEvenOdd(int num) {
-			return num % 2 == 0 ? EVEN : ODD;
-		}
-
-		public static int sumOfEvenNumbers(int min, int max, EvenOdd evenOdd) {
-			// generate array from min, max.
-			// use for loop to check with verifyEvenOdd
-			// push the new values to a new variable, totalSum += num
-			return 0;
-		}
-
-	}
-
 	public static class Ex06 {
-		final static double bonusPercentage = 2;
+		final static double bonusPercentage = 0.02;
 
 		public static double getHourlyBonus(double baseSalary, int extraHours) {
-			double hourlyBonus = (baseSalary * bonusPercentage) / 100;
+			double hourlyBonus = (baseSalary * bonusPercentage);
 			double totalBonus = extraHours * hourlyBonus;
 			if (totalBonus < 0) return -2;
 			return totalBonus;
@@ -208,8 +190,9 @@ public class dSoft3 {
 
 		// B)
 		public static int[] verificarAlimentacaoAdequadaDosAnimais(int[]... animais) {
-			int[] alimentacaoDosAnimais = new int[animais.length];
 			int posicaoAtual = 0;
+			int[] alimentacaoDosAnimais = new int[animais.length];
+
 			for (int[] animal : animais) {
 				if (animal.length != 2) return new int[]{-1}; // Array de tamanho inválido.
 
